@@ -1,0 +1,28 @@
+@import './../../style/variable';
+
+header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 3em;
+
+  div{
+    display: flex;
+    gap: 0.5em;
+  }
+
+  .checklist-icon{
+    margin-left: 0.3em;
+    background-color: $dark-green;
+    width: 1.4rem;
+    height: 1.4rem;
+    padding: 0.15rem;
+    border-radius: 0.4rem;
+    color: $white;
+  }
+
+  .brand-text{
+    font-weight: 600;
+    font-size: 1.2em;
+  }
+}
