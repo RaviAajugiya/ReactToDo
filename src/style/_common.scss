@@ -1,0 +1,42 @@
+@import './variable';
+
+
+*{
+  background-color: $white;
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+  font-family: $font-lato;
+  box-sizing: border-box;
+}
+
+a, a > *{
+    text-decoration: none;
+}
+
+body{
+  padding: 0.6em 1.2em;
+}
+
+.icon{
+  padding: 0;
+}
+
+.btn{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    gap: 0.5em;
+    font-weight: 500;
+    border: 0.11em solid $light-grey;
+    width: calc((100vw - 3em)/2);
+    padding: 0.8em 1em;
+    margin: 2em 0;
+    border-radius: 0.6em;
+    
+    p, .icon{
+        font-size: 1.2em ;
+    }
+}
+
+

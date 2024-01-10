@@ -2,23 +2,6 @@
 @import './../components/home/home';
 @import './common';
 @import './variable';
-
-
-*{
-  background-color: $white;
-  margin: 0;
-  padding: 0;
-  font-size: 16px;
-  font-family: $font-lato;
-  box-sizing: border-box;
-}
-
-body{
-  padding: 0.6em 1.2em;
-}
-
-.icon{
-  padding: 0;
-}
-
+@import './../components/footer/footer';
+@import './../components/addTask/addTask';
 

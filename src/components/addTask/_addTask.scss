@@ -1,0 +1,30 @@
+@import "./../../style/variable";
+
+.addTask {
+  form > * {
+    width: 100%;
+    padding: 1em 1em;
+    border-radius: 0.5em;
+    margin: 0.5em 0;
+  }
+
+  #description {
+    resize: vertical;
+  }
+
+  .icon {
+    width: 1.5em;
+    height: 1.5em;
+  }
+
+  .add-btn{
+    display: flex;
+    align-items: center;
+  }
+
+  .add-btn,
+  .add-btn > * {
+    background-color: $dark-green;
+    color: $white;
+  }
+}
