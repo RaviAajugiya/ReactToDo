@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Add } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
-import { addTodo } from "../Redux/slice/todoSlice";
+import { addTodo, editToDo, removeTodo } from "../Redux/slice/todoSlice";
 
 import { useLocation } from "react-router-dom";
 
@@ -14,24 +14,21 @@ function AddTask() {
   const [priority, setPriority] = useState("");
 
   const location = useLocation();
-  const data = location.state;
+  const editData = location.state;
   useEffect(() => {
-    if (
-      data &&
-      (data.group !== group ||
-        data.title !== title ||
-        data.description !== description ||
-        data.priority !== priority)
-    ) {
-      setGroup(data.group);
-      setTitle(data.title);
-      setDescription(data.description);
-      setPriority(data.priority);
-    }
-  }, [data, setGroup, setTitle, setDescription, setPriority]);
-
+    console.log(editData);
+    setGroup(editData?.group);
+    setTitle(editData?.title);
+    setDescription(editData?.description);
+    setPriority(editData?.priority);
+  }, []);
 
   const dispatch = useDispatch();
+
+  const handleDelete = (e) => {
+    e.preventDefault();
+    dispatch(removeTodo(editData.id));
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -43,7 +40,9 @@ function AddTask() {
       priority,
     };
 
-    dispatch(addTodo(todo));
+    editData
+      ? dispatch(editToDo({ ...todo, id: editData.id }))
+      : dispatch(addTodo(todo));
   };
 
   return (
@@ -56,9 +55,9 @@ function AddTask() {
           onChange={(e) => setGroup(e.target.value)}
         >
           <option>Select Group</option>
-          <option value="work">Work</option>
-          <option value="personal">Personal</option>
-          <option value="general">General</option>
+          <option value="Work">Work</option>
+          <option value="Personal">Personal</option>
+          <option value="General">General</option>
         </select>
         <br />
         <input
@@ -93,13 +92,16 @@ function AddTask() {
           onChange={(e) => setPriority(e.target.value)}
         >
           <option>Set Priority</option>
-          <option value="work">High</option>
-          <option value="personal">Medium</option>
-          <option value="general">Low</option>
+          <option value="1">High</option>
+          <option value="2">Medium</option>
+          <option value="3">Low</option>
         </select>
         <button onClick={(e) => handleSubmit(e)} className="btn add-btn">
           <Add className="icon" />
           <p>Save</p>
+        </button>
+        <button onClick={(e) => handleDelete(e)} className="btn add-btn">
+          Delete
         </button>
       </form>
     </div>

@@ -28,7 +28,7 @@ function Header() {
         <Search className="icon search-icon" />
         <NotificationsNone className="icon notification-icon" />
 
-        <AccountCircle className="icon user-icon" />
+        {/* <AccountCircle className="icon user-icon" /> */}
       </div>
     </header>
   );

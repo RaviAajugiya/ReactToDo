@@ -1,7 +1,6 @@
-@import './variable';
+@import "./variable";
 
-
-*{
+* {
   background-color: $white;
   margin: 0;
   padding: 0;
@@ -10,33 +9,41 @@
   box-sizing: border-box;
 }
 
-a, a > *{
-    text-decoration: none;
-}
-
-body{
+#root {
   padding: 0.6em 1.2em;
 }
 
-.icon{
+a,
+a > * {
+  text-decoration: none;
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+.icon {
   padding: 0;
 }
 
-.btn{
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    gap: 0.5em;
-    font-weight: 500;
-    border: 0.11em solid $light-grey;
-    width: calc((100vw - 3em)/2);
-    padding: 0.8em 1em;
-    margin: 2em 0;
-    border-radius: 0.6em;
-    
-    p, .icon{
-        font-size: 1.2em ;
-    }
+.btn {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  gap: 0.5em;
+  font-weight: 500;
+  border: 0.11em solid $light-grey;
+  width: calc((100vw - 3em) / 2);
+  padding: 0.8em 1em;
+  border-radius: 0.6em;
+
+  p,
+  .icon {
+    font-size: 1.2em;
+  }
 }
 
-
+.main-container {
+  overflow: scroll;
+  height: calc(100vh - 1.2em - 3em - 1.5em - 5em);
+}

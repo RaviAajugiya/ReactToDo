@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FormatListBulleted } from "@mui/icons-material";
 import Task from "./Task";
 import {
@@ -6,11 +6,25 @@ import {
   FiberManualRecord,
   Flag,
   CalendarMonth,
+  PendingActions,
+  CheckCircleOutline,
 } from "@mui/icons-material";
 import { useSelector } from "react-redux";
+import { getFilteredToDo } from "../Redux/slice/todoSlice";
 
 function home() {
-  const todos = useSelector((state) => state.todos);
+  const [status, setStatus] = useState('all');
+
+  
+  const activeTodos = getFilteredToDo(
+    useSelector((state) => state.todos),
+    "completed"
+  );
+
+  const completeTodos = getFilteredToDo(
+    useSelector((state) => state.todos),
+    "active"
+  );
 
   return (
     <div className="home">
@@ -20,49 +34,53 @@ function home() {
       </div>
 
       <div className="category-container">
-        <div>
+        <div className="all-btn">
           <FormatListBulleted className="icon" />
           <span>All</span>
         </div>
-        <div>
-          <FormatListBulleted className="icon" />
-          <span>Completed</span>
+        <div className="pending-btn">
+          <PendingActions className="icon" />
+          <span>Pending</span>
         </div>
-        <div>
-          <FormatListBulleted className="icon" />
-          <span>Active</span>
+        <div className="complete-btn">
+          <CheckCircleOutline className="icon" />
+          <span>Completed</span>
         </div>
       </div>
 
-      <p className="task-container-label">Today</p>
 
-      {todos.map((todo) => (
-        <Task
-          id={todo.id}
-          title={todo.title}
-          date={todo.date}
-          group={todo.group}
-          priority={todo.priority}
-        />
-      ))}
 
-      <p className="task-container-label">Completed</p>
+      <div className="">
+        <p className="task-container-label">Pending</p>
 
-      <div className="task completed-task">
-        <div className="task-iteam">
-          <input type="checkbox" name="" id="" />
-          <div>
-            <p>Complete ToDo Design</p>
-            <p>
-              <WatchLaterOutlined className="icon watch-icon" />
-              <span>07:00 PM</span>
-              <FiberManualRecord className="icon dot-icon" />
-              <CalendarMonth className="icon calendar-icon" />
-              <span>1 Jan</span>|<span>work</span>
-            </p>
-          </div>
-        </div>
-        <Flag className="priority-flag" />
+        {activeTodos.map((todo) => (
+          <Task
+            key={todo.id}
+            id={todo.id}
+            title={todo.title}
+            date={todo.date}
+            group={todo.group}
+            priority={todo.priority}
+            description={todo.description}
+            completed={todo.completed}
+          />
+        ))}
+        
+      </div>
+      <div>
+        <p className="task-container-label">Completed</p>
+        {completeTodos.map((todo) => (
+          <Task
+            key={todo.id}
+            id={todo.id}
+            title={todo.title}
+            date={todo.date}
+            group={todo.group}
+            priority={todo.priority}
+            description={todo.description}
+            completed={todo.completed}
+          />
+        ))}
       </div>
     </div>
   );
