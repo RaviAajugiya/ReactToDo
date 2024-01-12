@@ -1,7 +1,6 @@
 @import "./../../style/variable";
 
 .home {
-
   .task-container-label {
     margin: 1em 0em 0.5em 0em;
   }
@@ -45,9 +44,13 @@
     }
   }
 
-  p {
-    font-weight: 600;
-    font-size: 1.1em;
+  // p {
+  //   font-weight: 600;
+  //   font-size: 1.1em;
+  // }
+
+  .todo-container {
+    margin-top: 1.5em;
   }
 
   .task {
@@ -82,7 +85,7 @@
 
           .dot-icon {
             width: 0.4em;
-            margin: 0 0.5em;
+            margin: 0 0.1em;
           }
 
           &:first-child {
@@ -101,7 +104,13 @@
       }
     }
 
-    .priority-flag {
+    .priority-high {
+      color: $light-red;
+    }
+    .priority-low {
+      color: $light-yellow;
+    }
+    .priority-medium {
       color: $light-green;
     }
 
@@ -132,6 +141,49 @@
           }
         }
       }
+    }
+  }
+
+  .footer {
+    
+
+    div {
+      display: flex;
+      align-items: center;
+    }
+
+    .save-btn {
+      width: 7em;
+    }
+
+    .suggestion-btn,
+    .add-btn {
+      width: calc((100vw - 3em) / 2);
+    }
+
+    .icon {
+      width: 1.5em;
+      height: 1.5em;
+    }
+
+    .suggestion-btn {
+      color: $dark-green;
+      background-color: $white;
+
+      border: 0.1em solid $light-grey;
+
+      p,
+      .icon {
+        color: $dark-green;
+        background-color: $white;
+        font-weight: 400 !important;
+      }
+    }
+
+    .add-btn,
+    .add-btn > * {
+      background-color: $dark-green;
+      color: $white;
     }
   }
 }

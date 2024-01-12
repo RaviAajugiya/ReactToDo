@@ -10,7 +10,7 @@
 }
 
 #root {
-  padding: 0.6em 1.2em;
+  margin: 0.6em 1.2em;
 }
 
 a,
@@ -32,18 +32,35 @@ body::-webkit-scrollbar {
   text-align: center;
   gap: 0.5em;
   font-weight: 500;
-  border: 0.11em solid $light-grey;
-  width: calc((100vw - 3em) / 2);
-  padding: 0.8em 1em;
+  width: fit-content;
+  padding: 0.5em 1em;
+  height: 3em;
   border-radius: 0.6em;
+  background-color: $dark-green;
 
   p,
   .icon {
-    font-size: 1.2em;
+    background-color: $dark-green;
+    color: $white;
+    font-size: 1.1em;
   }
 }
 
 .main-container {
   overflow: scroll;
   height: calc(100vh - 1.2em - 3em - 1.5em - 5em);
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 0);
+  margin: 1em 0em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.7em;
+  height: fit-content;
+  font-weight: 400 !important;
 }

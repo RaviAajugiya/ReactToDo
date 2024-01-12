@@ -6,30 +6,34 @@ const initialState = {
       id: nanoid(),
       title: "Learn React ",
       description: "description",
-      priority: 1,
+      priority: "high",
       completed: false,
-      date: "09-01-2024",
+      date: "2024-01-07",
+      remindMe: "10:00",
       group: "Personal",
     },
     {
       id: nanoid(),
       title: "Learn Js ",
       description: "description",
-      priority: 1,
-      completed: false,
-      date: "09-01-2024",
+      priority: "low",
+      completed: true,
+      date: "2024-01-07",
+      remindMe: "15:00",
       group: "Personal",
     },
     {
       id: nanoid(),
       title: "Learn React ",
       description: "description",
-      priority: 1,
+      priority: "medium",
       completed: false,
-      date: "09-01-2024",
+      date: "2024-01-07",
+      remindMe: "10:00",
       group: "Personal",
     },
   ],
+  helperId: '1',
 };
 
 export const todoSlice = createSlice({
@@ -44,6 +48,7 @@ export const todoSlice = createSlice({
         priority: action.payload.priority,
         date: action.payload.date,
         group: action.payload.group,
+        remindMe: action.payload.remindMe,
         completed: false,
       };
       state.todos.push(todo);
@@ -66,27 +71,35 @@ export const todoSlice = createSlice({
       );
       state.todos[index].completed = action.payload.completed;
     },
+
+    setHelperId: (state, action) => {
+      // console.log(action.payload);
+      state.helperId = action.payload;
+    }
   },
 });
-
-
 
 export const getFilteredToDo = (state, status) => {
   let data = [];
   switch (status) {
     case "active":
-      data = state.filter((todo) => todo.completed);
-      break;
-
-    case "completed":
       data = state.filter((todo) => !todo.completed);
       break;
 
+    case "completed":
+      data = state.filter((todo) => todo.completed);
+      break;
+
+    case "all":
+      data = state;
+      break;
   }
   return data;
 };
 
-export const { addTodo, removeTodo, editToDo, setToDoState } =
+
+
+export const { addTodo, removeTodo, editToDo, setToDoState, setHelperId } =
   todoSlice.actions;
 
 export default todoSlice.reducer;

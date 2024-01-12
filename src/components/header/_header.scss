@@ -1,17 +1,17 @@
-@import './../../style/variable';
+@import "./../../style/variable";
 
-header{
+header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: 3em;
 
-  div{
+  div {
     display: flex;
     gap: 0.5em;
   }
 
-  .checklist-icon{
+  .checklist-icon {
     margin-left: 0.3em;
     background-color: $dark-green;
     width: 1.4rem;
@@ -21,12 +21,17 @@ header{
     color: $white;
   }
 
-  .user-icon{
+  .edit-icon, .delete-icon{
+    scale: 1.1;
+    // color: $dark-green;
+  }
+
+  .user-icon {
     color: $dark-green;
     scale: 1.5;
   }
 
-  .brand-text{
+  .brand-text {
     font-weight: 600;
     font-size: 1.2em;
   }

@@ -5,25 +5,28 @@ import {
   WatchLaterOutlined,
   FiberManualRecord,
   Flag,
-  CalendarMonth,
+  Add,
+  EmojiObjectsOutlined,
   PendingActions,
   CheckCircleOutline,
 } from "@mui/icons-material";
 import { useSelector } from "react-redux";
 import { getFilteredToDo } from "../Redux/slice/todoSlice";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function home() {
-  const [status, setStatus] = useState('all');
+  const [status, setStatus] = useState("active");
+  const location = useLocation();
+  const navigate = useNavigate();
 
-  
-  const activeTodos = getFilteredToDo(
+  const todos = getFilteredToDo(
     useSelector((state) => state.todos),
-    "completed"
+    status
   );
 
   const completeTodos = getFilteredToDo(
     useSelector((state) => state.todos),
-    "active"
+    "completed"
   );
 
   return (
@@ -34,26 +37,29 @@ function home() {
       </div>
 
       <div className="category-container">
-        <div className="all-btn">
+        <div className="all-btn" onClick={() => setStatus("all")}>
           <FormatListBulleted className="icon" />
           <span>All</span>
         </div>
-        <div className="pending-btn">
+        <div className="pending-btn" onClick={() => setStatus("active")}>
           <PendingActions className="icon" />
           <span>Pending</span>
         </div>
-        <div className="complete-btn">
+        <div className="complete-btn" onClick={() => setStatus("completed")}>
           <CheckCircleOutline className="icon" />
           <span>Completed</span>
         </div>
       </div>
 
+      <div className="todo-container">
+        {/* {status === "all" ? (
+          <p className="task-container-label">Pending</p>
+        ) : (
+          ""
+        )} */}
 
-
-      <div className="">
-        <p className="task-container-label">Pending</p>
-
-        {activeTodos.map((todo) => (
+        {/* {status === "all" ? setStatus("active") : ""} */}
+        {todos.map((todo) => (
           <Task
             key={todo.id}
             id={todo.id}
@@ -63,24 +69,42 @@ function home() {
             priority={todo.priority}
             description={todo.description}
             completed={todo.completed}
+            remindMe={todo.remindMe}
           />
         ))}
-        
       </div>
-      <div>
-        <p className="task-container-label">Completed</p>
-        {completeTodos.map((todo) => (
-          <Task
-            key={todo.id}
-            id={todo.id}
-            title={todo.title}
-            date={todo.date}
-            group={todo.group}
-            priority={todo.priority}
-            description={todo.description}
-            completed={todo.completed}
-          />
-        ))}
+
+      {/* <div>
+        {status === "all" ? (
+          <>
+            <p className="task-container-label">Completed</p>
+            {completeTodos.map((todo) => (
+              <Task
+                key={todo.id}
+                id={todo.id}
+                title={todo.title}
+                date={todo.date}
+                group={todo.group}
+                priority={todo.priority}
+                description={todo.description}
+                completed={todo.completed}
+              />
+            ))}
+          </>
+        ) : (
+          ""
+        )}
+      </div> */}
+
+      <div className="footer">
+        <div className="btn suggestion-btn">
+          <EmojiObjectsOutlined className="icon" />
+          <p>Suggestion</p>
+        </div>
+        <div className="btn add-btn" onClick={() => navigate("/add")}>
+          <Add className="icon" />
+          <p>Add Task</p>
+        </div>
       </div>
     </div>
   );

@@ -1,34 +1,50 @@
 import React from "react";
 import {
-  Menu,
+  DeleteForever,
   Checklist,
   Search,
   NotificationsNone,
   West,
-  AccountCircle,
+  EditOutlined,
 } from "@mui/icons-material";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function Header() {
+  const location = useLocation();
+  if(location.pathname === "/add"){
+    const helperId = useSelector((state) => state.helperId);
+    console.log(helperId);
+  }
   return (
     <header>
       <div>
-        <Link to="menu">
-          <Menu className="icon menu-icon" />
-        </Link>
-        <Checklist className="icon checklist-icon" />
-        <span className="brand-text">Task Ease</span>
-
-        <Link to="/">
-          <West className="icon arrow-icon" />
-        </Link>
-        <span className="brand-text">Edit Task</span>
+        {location.pathname === "/" ? (
+          <>
+            <Checklist className="icon checklist-icon" />
+            <span className="brand-text">Task Ease</span>
+          </>
+        ) : (
+          <>
+            <Link to="/">
+              <West className="icon arrow-icon" />
+            </Link>
+            <span className="brand-text">Edit Task</span>
+          </>
+        )}
       </div>
       <div>
-        <Search className="icon search-icon" />
-        <NotificationsNone className="icon notification-icon" />
-
-        {/* <AccountCircle className="icon user-icon" /> */}
+        {location.pathname === "/" ? (
+          <>
+            <Search className="icon search-icon" />
+            <NotificationsNone className="icon notification-icon" />
+          </>
+        ) : (
+          <>
+            <EditOutlined className="icon edit-icon" />
+            <DeleteForever className="icon delete-icon" />
+          </>
+        )}
       </div>
     </header>
   );

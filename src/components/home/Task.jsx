@@ -12,6 +12,17 @@ import { setToDoState } from "../Redux/slice/todoSlice";
 function Task(props) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  let date = new Date(props.date);
+  let time, meridiemTime, dateDay;
+
+  if (props.remindMe) {
+     time = props.remindMe.split(":");
+     meridiemTime =
+      (time[0] >= 12 && (time[0] - 12 || 12) + ":" + time[1] + " PM") ||
+      (Number(time[0]) || 12) + ":" + time[1] + " AM";
+     dateDay =
+      date.getDate() + " " + date.toLocaleString("en-US", { month: "short" });
+  }
 
   const getDetail = (e) => {
     if (e.target.nodeName !== "INPUT") {
@@ -41,14 +52,14 @@ function Task(props) {
           <p>{props.title}</p>
           <p>
             <WatchLaterOutlined className="icon watch-icon" />
-            <span>07:00</span>
+            <span>{meridiemTime}</span>
             <FiberManualRecord className="icon dot-icon" />
             <CalendarMonth className="icon calendar-icon" />
-            <span>{props.date}</span>|<span>{props.group}</span>
+            <span>{dateDay}</span>|<span>{props.group}</span>
           </p>
         </div>
       </div>
-      <Flag className="priority-flag" />
+      <Flag className={`priority-${props.priority}`} />
     </div>
   );
 }
