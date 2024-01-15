@@ -46,21 +46,20 @@ body::-webkit-scrollbar {
   }
 }
 
-.main-container {
-  overflow: scroll;
-  height: calc(100vh - 1.2em - 3em - 1.5em - 5em);
-}
+// .main-container {
+//   overflow: scroll;
+//   height: calc(100vh - 1.2em - 3em - 1.5em - 5em);
+// }
 
 .footer {
   position: fixed;
   bottom: 0;
   left: 50%;
   transform: translate(-50%, 0);
-  margin: 1em 0em;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 0.7em;
-  height: fit-content;
+  height: 4.5em;
   font-weight: 400 !important;
 }

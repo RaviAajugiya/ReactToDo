@@ -19,6 +19,8 @@ const router = createBrowserRouter(
     <Route path="/" element={<Layout />}>
       <Route path="" element={<Home />} />
       <Route path="add" element={<AddTask />} />
+      <Route path="edit/:id" element={<AddTask />} />
+
       <Route path="menu" element={<Menu />} />
     </Route>
   )

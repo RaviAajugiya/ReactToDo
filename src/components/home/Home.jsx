@@ -14,6 +14,7 @@ import { useSelector } from "react-redux";
 import { getFilteredToDo } from "../Redux/slice/todoSlice";
 import { useLocation, useNavigate } from "react-router-dom";
 
+
 function home() {
   const [status, setStatus] = useState("active");
   const location = useLocation();
@@ -52,13 +53,6 @@ function home() {
       </div>
 
       <div className="todo-container">
-        {/* {status === "all" ? (
-          <p className="task-container-label">Pending</p>
-        ) : (
-          ""
-        )} */}
-
-        {/* {status === "all" ? setStatus("active") : ""} */}
         {todos.map((todo) => (
           <Task
             key={todo.id}
@@ -73,28 +67,6 @@ function home() {
           />
         ))}
       </div>
-
-      {/* <div>
-        {status === "all" ? (
-          <>
-            <p className="task-container-label">Completed</p>
-            {completeTodos.map((todo) => (
-              <Task
-                key={todo.id}
-                id={todo.id}
-                title={todo.title}
-                date={todo.date}
-                group={todo.group}
-                priority={todo.priority}
-                description={todo.description}
-                completed={todo.completed}
-              />
-            ))}
-          </>
-        ) : (
-          ""
-        )}
-      </div> */}
 
       <div className="footer">
         <div className="btn suggestion-btn">

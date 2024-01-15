@@ -5,9 +5,11 @@ import {
   Flag,
   CalendarMonth,
 } from "@mui/icons-material";
-import { useNavigate } from "react-router-dom";
+
 import { useDispatch, useSelector } from "react-redux";
 import { setToDoState } from "../Redux/slice/todoSlice";
+import { useNavigate } from "react-router-dom";
+
 
 function Task(props) {
   const dispatch = useDispatch();
@@ -16,26 +18,24 @@ function Task(props) {
   let time, meridiemTime, dateDay;
 
   if (props.remindMe) {
-     time = props.remindMe.split(":");
-     meridiemTime =
+    time = props.remindMe.split(":");
+    meridiemTime =
       (time[0] >= 12 && (time[0] - 12 || 12) + ":" + time[1] + " PM") ||
       (Number(time[0]) || 12) + ":" + time[1] + " AM";
-     dateDay =
+    dateDay =
       date.getDate() + " " + date.toLocaleString("en-US", { month: "short" });
   }
 
   const getDetail = (e) => {
     if (e.target.nodeName !== "INPUT") {
-      console.log("props", props);
-      navigate("/add", { state: props });
+      navigate(`/edit/${props.id}`, { state: props });
     }
   };
 
   return (
     <div
       onClick={getDetail}
-      className={`${props.completed ? "task  completed-task" : "task"}`}
-    >
+      className={`${props.completed ? "task  completed-task" : "task"}`}>
       <div className="task-item">
         <input
           type="checkbox"

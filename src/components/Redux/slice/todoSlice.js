@@ -1,4 +1,5 @@
 import { createSlice, nanoid } from "@reduxjs/toolkit";
+import { showNotification } from "../../../services/notification";
 
 const initialState = {
   todos: [
@@ -51,6 +52,20 @@ export const todoSlice = createSlice({
         remindMe: action.payload.remindMe,
         completed: false,
       };
+      if (todo.remindMe) {
+        const remindTime = new Date(`${todo.date}T${todo.remindMe}`);
+        const currentTime = new Date();
+    
+        // Calculate timeout duration
+        const timeoutDuration = remindTime - currentTime;
+    
+        // Set timeout to show notification
+        setTimeout(() => {
+          showNotification(`Reminder: ${todo.title}`, {
+            body: `Don't forget to ${todo.title}`,
+          });
+        }, timeoutDuration);
+      }
       state.todos.push(todo);
     },
 
