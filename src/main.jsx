@@ -13,6 +13,8 @@ import AddTask from "./components/addTask/AddTask";
 import Menu from "./components/menu/Menu";
 import { Provider } from "react-redux";
 import { store } from "./components/Redux/store";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -28,8 +30,9 @@ const router = createBrowserRouter(
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   // <React.StrictMode>
-    <Provider store={store}>
-      <RouterProvider router={router} />
-    </Provider>
+  <Provider store={store}>
+    <RouterProvider router={router} />
+    <ToastContainer />
+  </Provider>
   // </React.StrictMode>
 );

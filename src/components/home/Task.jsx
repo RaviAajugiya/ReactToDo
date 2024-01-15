@@ -9,13 +9,23 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { setToDoState } from "../Redux/slice/todoSlice";
 import { useNavigate } from "react-router-dom";
-
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 
 function Task(props) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   let date = new Date(props.date);
   let time, meridiemTime, dateDay;
+
+  const { attributes, listeners, setNodeRef, transform, transition } =
+    useSortable({ id: props.id });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    
+  };
 
   if (props.remindMe) {
     time = props.remindMe.split(":");
@@ -35,7 +45,12 @@ function Task(props) {
   return (
     <div
       onClick={getDetail}
-      className={`${props.completed ? "task  completed-task" : "task"}`}>
+      className={`${props.completed ? "task  completed-task" : "task"}`}
+      ref={setNodeRef}
+      style={style}
+      {...attributes}
+      {...listeners}
+    >
       <div className="task-item">
         <input
           type="checkbox"

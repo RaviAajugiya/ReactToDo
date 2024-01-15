@@ -1,30 +1,41 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   DeleteForever,
   Checklist,
   Search,
-  NotificationsNone,
+  LightMode,
   West,
-  EditOutlined,
+  DarkMode,
 } from "@mui/icons-material";
-import { Link, useLocation, useParams } from "react-router-dom";
-import { useSelector,useDispatch } from "react-redux";
+import { Link, createSearchParams, useLocation, useNavigate, useParams } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import { removeTodo } from "../Redux/slice/todoSlice";
+import { toast } from "react-toastify";
 
 function Header() {
   const location = useLocation();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [search, setSearch] = useState('');
   const { id } = useParams();
-  if (location.pathname === "/add") {
-    const helperId = useSelector((state) => state.helperId);
-    console.log(helperId);
-  }
 
-  
+  const searchToDo = (e) => {
+    if(e.key === "Enter"){
+      navigate({
+        pathname: "/",
+        search: createSearchParams({
+          search: e.target.value,
+        }).toString(),
+      });
+      setSearch('');
+    }
+  }
 
   const handleDelete = (e) => {
     e.preventDefault();
     dispatch(removeTodo(id));
+    toast.success(`Task deleted successfully`);
+    navigate("/");
   };
 
   return (
@@ -40,23 +51,28 @@ function Header() {
             <Link to="/">
               <West className="icon arrow-icon" />
             </Link>
-            <span className="brand-text">{id ? 'Edit' : 'Add'} Task</span>
+            <span className="brand-text">{id ? "Edit" : "Add"} Task</span>
           </>
         )}
       </div>
       <div>
         {location.pathname === "/" ? (
           <>
-            <Search className="icon search-icon" />
-            <NotificationsNone className="icon notification-icon" />
+            {/* <Search className="icon search-icon"  onClick="SearchTodo"/> */}
+            <input type="text" value={search} className="searchBox" placeholder="Search" onChange={(e) => setSearch(e.target.value)}  onKeyUp={(e) => searchToDo(e)}/>
+            {/* <DarkMode className="icon arrow-icon" /> */}
+            {/* <LightMode className="icon arrow-icon" />    */}
           </>
         ) : (
           <>
-            {/* <EditOutlined className="icon edit-icon" sx={{}} /> */}
-            <DeleteForever
-              onClick={handleDelete}
-              className="icon delete-icon"
-            />
+            {location.pathname === "/add" ? (
+              ""
+            ) : (
+              <DeleteForever
+                onClick={handleDelete}
+                className="icon delete-icon"
+              />
+            )}
           </>
         )}
       </div>

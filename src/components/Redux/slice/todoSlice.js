@@ -1,5 +1,5 @@
 import { createSlice, nanoid } from "@reduxjs/toolkit";
-import { showNotification } from "../../../services/notification";
+import { useNavigate } from "react-router-dom";
 
 const initialState = {
   todos: [
@@ -34,7 +34,6 @@ const initialState = {
       group: "Personal",
     },
   ],
-  helperId: '1',
 };
 
 export const todoSlice = createSlice({
@@ -52,20 +51,7 @@ export const todoSlice = createSlice({
         remindMe: action.payload.remindMe,
         completed: false,
       };
-      if (todo.remindMe) {
-        const remindTime = new Date(`${todo.date}T${todo.remindMe}`);
-        const currentTime = new Date();
-    
-        // Calculate timeout duration
-        const timeoutDuration = remindTime - currentTime;
-    
-        // Set timeout to show notification
-        setTimeout(() => {
-          showNotification(`Reminder: ${todo.title}`, {
-            body: `Don't forget to ${todo.title}`,
-          });
-        }, timeoutDuration);
-      }
+
       state.todos.push(todo);
     },
 
@@ -87,34 +73,55 @@ export const todoSlice = createSlice({
       state.todos[index].completed = action.payload.completed;
     },
 
-    setHelperId: (state, action) => {
-      // console.log(action.payload);
-      state.helperId = action.payload;
-    }
+    swapTask: (state, action) => {
+      const index1 = state.todos.findIndex(
+        (e) => e.id === action.payload.active
+      );
+      const index2 = state.todos.findIndex((e) => e.id === action.payload.over);
+
+      [state.todos[index1], state.todos[index2]] = [
+        state.todos[index2],
+        state.todos[index1],
+      ];
+    },
   },
 });
 
-export const getFilteredToDo = (state, status) => {
+export const getFilteredToDo = (state, status, search) => {
+  const navigate = useNavigate();
+  search = search ? search : "";
+  // console.log(status, search);
   let data = [];
   switch (status) {
     case "active":
-      data = state.filter((todo) => !todo.completed);
+      data = state.filter(
+        (todo) => !todo.completed && todo.title.includes(search)
+      );
       break;
 
     case "completed":
-      data = state.filter((todo) => todo.completed);
+      data = state.filter(
+        (todo) => todo.completed && todo.title.includes(search)
+      );
       break;
 
     case "all":
-      data = state;
+      data = state.filter(
+        (todo) => todo.title.includes(search)
+      );
       break;
   }
+
   return data;
 };
 
-
-
-export const { addTodo, removeTodo, editToDo, setToDoState, setHelperId } =
-  todoSlice.actions;
+export const {
+  addTodo,
+  removeTodo,
+  editToDo,
+  setToDoState,
+  setHelperId,
+  swapTask,
+} = todoSlice.actions;
 
 export default todoSlice.reducer;

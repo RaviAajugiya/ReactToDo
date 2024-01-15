@@ -1,35 +1,35 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Add } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
-import { addTodo, editToDo, removeTodo, setHelperId } from "../Redux/slice/todoSlice";
 import {
-  ArrowDropDown,
+  addTodo,
+  editToDo,
+  removeTodo,
+} from "../Redux/slice/todoSlice";
+import {
   NotificationsNone,
   CalendarMonth,
   FlagOutlined,
-  Flag,
 } from "@mui/icons-material";
 import { useLocation } from "react-router-dom";
-import { showNotification } from "../../services/notification";
+import { toast } from "react-toastify";
+import showNotification from "../../services/notification";
 
 function AddTask() {
-
   const [group, setGroup] = useState("");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [date, setDate] = useState("");
   const [remindMe, setRemindMe] = useState("");
   const [priority, setPriority] = useState("");
-  
+
   const dispatch = useDispatch();
   const location = useLocation();
   const editData = location.state;
-  
-  if(editData){
-    dispatch(setHelperId(editData.id));
-  }
-  
+  const navigate = useNavigate();
+
+ 
 
   useEffect(() => {
     console.log(editData);
@@ -40,7 +40,6 @@ function AddTask() {
     setRemindMe(editData?.remindMe);
     setPriority(editData?.priority);
   }, []);
-
 
   const handleDelete = (e) => {
     e.preventDefault();
@@ -55,13 +54,31 @@ function AddTask() {
       description,
       date,
       priority,
-      remindMe
+      remindMe,
     };
     console.log(todo);
+    
+    if (editData) {
+      dispatch(editToDo({ ...todo, id: editData.id }));
+      toast.success(`"${todo.title}" added successfully `);
+    } else {
+      dispatch(addTodo(todo));
+      toast.success(`"${todo.title}" edited successfully `);
+    }
 
-    editData
-      ? dispatch(editToDo({ ...todo, id: editData.id }))
-      : dispatch(addTodo(todo));
+    if (todo.remindMe) {
+      const remindTime = new Date(`${todo.date}T${todo.remindMe}`);
+      const currentTime = new Date();
+      const timeoutDuration = remindTime - currentTime;
+      console.log(timeoutDuration);
+
+      setTimeout(() => {
+        showNotification(`Reminder: ${todo.title}`, {
+          body: `Don't forget to ${todo.title}`,
+        });
+      }, timeoutDuration);
+    }
+    navigate("/");
   };
 
   return (

@@ -1,37 +1,17 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
 
-$light-orange: #FDA015;
-$red : #D14C4C;
-$green : #61D241;
-$dark-grey : #262626;
-$light-grey : #5F5F5F;
-$white : #FBFBFB;
-$dark-green : #19A975;
-$light-green : #BAE5D6;
-$light-bg : #eeeeee;
-$light-red : #ff9c9c;
-$light-yellow : #ffc94b;
-$light-border:  #cacaca;
-
-
-$font-lato: 'Lato', sans-serif;
+$light-orange: #fda015;
+$red: #d14c4c;
+$green: #61d241;
+$dark-grey: #262626;
+$light-grey: #5f5f5f;
+$white: #fbfbfb;
+$dark-green: #19a975;
+$light-green: #bae5d6;
+$light-bg: #eeeeee;
+$light-red: #ff9c9c;
+$light-yellow: #ffc94b;
+$light-border: #cacaca;
 
 
-$dark-mode-bg: #1E1E1E;      // Dark background color
-$dark-mode-text: #FFFFFF;    // Text color in dark mode
-$dark-mode-accent: #4CAF50;  // Accent color in dark mode
-$dark-mode-secondary: #757575; // Secondary text color, such as for descriptions
-
-$dark-mode-red: #FF5252;      // Red color for alerts/errors
-$dark-mode-yellow: #FFC107;   // Yellow color for warnings
-$dark-mode-blue: #2196F3;     // Blue color for information
-
-
-$dark-mode-border: #555555;
-
-// Background color for hover/focus states
-$dark-mode-hover-bg: #333333;
-
-// Background color for selected/active states
-$dark-mode-active-bg: #444444;
-
+$font-lato: "Lato", sans-serif;

@@ -10,76 +10,144 @@ import {
   PendingActions,
   CheckCircleOutline,
 } from "@mui/icons-material";
-import { useSelector } from "react-redux";
-import { getFilteredToDo } from "../Redux/slice/todoSlice";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getFilteredToDo, swapTask } from "../Redux/slice/todoSlice";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
+import {
+  DndContext,
+  closestCenter,
+  MouseSensor,
+  TouchSensor,
+  useSensor,
+  useSensors,
+} from "@dnd-kit/core";
 
+import {
+  arrayMove,
+  SortableContext,
+  verticalListSortingStrategy,
+} from "@dnd-kit/sortable";
 
 function home() {
-  const [status, setStatus] = useState("active");
+  const [status, setStatus] = useState("all");
   const location = useLocation();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [search, setSearch] = useState("");
+  const [searchParams] = useSearchParams();
+
+  const sensors = useSensors(
+    useSensor(MouseSensor, {
+      activationConstraint: { delay: 200 },
+    }),
+    useSensor(TouchSensor, {
+      activationConstraint: { delay: 200 },
+    })
+  );
+
+  const searchVal = searchParams.get("search");
+
+  useEffect(() => {
+    setSearch(searchParams.get("search"));
+  }, [searchVal]);
 
   const todos = getFilteredToDo(
     useSelector((state) => state.todos),
-    status
+    status,
+    search
   );
 
-  const completeTodos = getFilteredToDo(
-    useSelector((state) => state.todos),
-    "completed"
-  );
+  const loadData = (e, status) => {
+    document.querySelector(".shadow")?.classList.remove("shadow");
+    setStatus(status);
+    const container = e.target.closest(".header-btn");
+    if (container) {
+      container.classList.add("shadow");
+    }
+    navigate('/')
+  };
 
   return (
-    <div className="home">
-      <div className="category-label task-container-label">
-        <span className="">Categories</span>
-        <span>View all</span>
-      </div>
+    <DndContext
+      collisionDetection={closestCenter}
+      onDragEnd={handleDragEnd}
+      sensors={sensors}
+    >
+      <div className="home">
+        <div className="category-label task-container-label">
+          <span className="">Categories</span>
+          <span>View all</span>
+        </div>
 
-      <div className="category-container">
-        <div className="all-btn" onClick={() => setStatus("all")}>
-          <FormatListBulleted className="icon" />
-          <span>All</span>
+        <div className="category-container">
+          <div
+            className="shadow header-btn all-btn"
+            onClick={(e) => {
+              loadData(e, "all");
+            }}
+          >
+            <FormatListBulleted className="icon" />
+            <span>All</span>
+          </div>
+          <div
+            className="header-btn pending-btn"
+            onClick={(e) => {
+              loadData(e, "active");
+            }}
+          >
+            <PendingActions className="icon" />
+            <span>Pending</span>
+          </div>
+          <div
+            className="header-btn complete-btn"
+            onClick={(e) => {
+              loadData(e, "completed");
+            }}
+          >
+            <CheckCircleOutline className="icon" />
+            <span>Completed</span>
+          </div>
         </div>
-        <div className="pending-btn" onClick={() => setStatus("active")}>
-          <PendingActions className="icon" />
-          <span>Pending</span>
-        </div>
-        <div className="complete-btn" onClick={() => setStatus("completed")}>
-          <CheckCircleOutline className="icon" />
-          <span>Completed</span>
-        </div>
-      </div>
 
-      <div className="todo-container">
-        {todos.map((todo) => (
-          <Task
-            key={todo.id}
-            id={todo.id}
-            title={todo.title}
-            date={todo.date}
-            group={todo.group}
-            priority={todo.priority}
-            description={todo.description}
-            completed={todo.completed}
-            remindMe={todo.remindMe}
-          />
-        ))}
-      </div>
+        <div className="todo-container">
+          <SortableContext items={todos} strategy={verticalListSortingStrategy}>
+            {todos.map((todo) => (
+              <Task
+                key={todo.id}
+                id={todo.id}
+                title={todo.title}
+                date={todo.date}
+                group={todo.group}
+                priority={todo.priority}
+                description={todo.description}
+                completed={todo.completed}
+                remindMe={todo.remindMe}
+              />
+            ))}
+          </SortableContext>
+        </div>
 
-      <div className="footer">
-        <div className="btn suggestion-btn">
-          <EmojiObjectsOutlined className="icon" />
-          <p>Suggestion</p>
-        </div>
-        <div className="btn add-btn" onClick={() => navigate("/add")}>
-          <Add className="icon" />
-          <p>Add Task</p>
+        <div className="footer">
+          <div className="btn suggestion-btn">
+            <EmojiObjectsOutlined className="icon" />
+            <p>Suggestion</p>
+          </div>
+          <div className="btn add-btn" onClick={() => navigate("/add")}>
+            <Add className="icon" />
+            <p>Add Task</p>
+          </div>
         </div>
       </div>
-    </div>
+    </DndContext>
   );
+
+  function handleDragEnd(event) {
+    const { active, over } = event;
+    console.log(active, over);
+    if (active.id !== over.id) {
+      dispatch(swapTask({ active: active.id, over: over.id }));
+    }
+  }
 }
 
 export default home;
