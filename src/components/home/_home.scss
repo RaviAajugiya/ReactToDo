@@ -48,13 +48,14 @@
     }
   }
 
-  // p {
-  //   font-weight: 600;
-  //   font-size: 1.1em;
-  // }
-
   .todo-container {
     margin-top: 1.5em;
+    overflow-y: scroll;  
+
+    &::-webkit-scrollbar {
+      width: 0;  
+    }
+    height: calc(100vh - 3em - 4.5em - 1.2em - 45.6px - 38.4px - 1em);
   }
 
   .task {

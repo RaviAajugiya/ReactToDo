@@ -4,6 +4,7 @@ import {
   Checklist,
   Search,
   LightMode,
+  AccountCircle,
   West,
   DarkMode,
 } from "@mui/icons-material";
@@ -62,6 +63,7 @@ function Header() {
             <input type="text" value={search} className="searchBox" placeholder="Search" onChange={(e) => setSearch(e.target.value)}  onKeyUp={(e) => searchToDo(e)}/>
             {/* <DarkMode className="icon arrow-icon" /> */}
             {/* <LightMode className="icon arrow-icon" />    */}
+            <AccountCircle fontSize="large"/>
           </>
         ) : (
           <>

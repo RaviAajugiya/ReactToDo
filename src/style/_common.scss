@@ -46,10 +46,6 @@ body::-webkit-scrollbar {
   }
 }
 
-// .main-container {
-//   overflow: scroll;
-//   height: calc(100vh - 1.2em - 3em - 1.5em - 5em);
-// }
 
 .footer {
   position: fixed;
@@ -62,4 +58,28 @@ body::-webkit-scrollbar {
   gap: 0.7em;
   height: 4.5em;
   font-weight: 400 !important;
+}
+
+
+
+@media only screen and (max-width: 600px) {
+
+}
+
+@media only screen and (min-width: 601px) and (max-width: 768px) {
+
+}
+
+@media only screen and (min-width: 769px) and (max-width: 992px) {
+}
+
+@media only screen and (min-width: 993px) {
+  .home{
+    width: 60%;
+    margin: auto;
+    // border: 1px solid $light-grey;
+    height: 100vh;
+    padding: 0 1.5em;
+    box-shadow: rgba(17, 17, 26, 0.1) -1px 0px 13px 3px inset, rgba(17, 17, 26, 0.05) 0px 8px 32px 0px;
+  }
 }

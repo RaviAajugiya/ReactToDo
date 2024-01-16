@@ -19,12 +19,11 @@ function Task(props) {
   let time, meridiemTime, dateDay;
 
   const { attributes, listeners, setNodeRef, transform, transition } =
-    useSortable({ id: props.id });
+    useSortable({ id: props.id, axis: "y" });
 
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
-    
   };
 
   if (props.remindMe) {
@@ -49,8 +48,7 @@ function Task(props) {
       ref={setNodeRef}
       style={style}
       {...attributes}
-      {...listeners}
-    >
+      {...listeners}>
       <div className="task-item">
         <input
           type="checkbox"

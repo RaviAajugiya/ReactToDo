@@ -8,6 +8,76 @@ const initialState = {
       title: "Learn React ",
       description: "description",
       priority: "high",
+      completed: true,
+      date: "2024-01-07",
+      remindMe: "10:00",
+      group: "Personal",
+    },
+    {
+      id: nanoid(),
+      title: "Learn React ",
+      description: "description",
+      priority: "high",
+      completed: true,
+      date: "2024-01-07",
+      remindMe: "10:00",
+      group: "Personal",
+    },
+    {
+      id: nanoid(),
+      title: "Learn React ",
+      description: "description",
+      priority: "high",
+      completed: true,
+      date: "2024-01-07",
+      remindMe: "10:00",
+      group: "Personal",
+    },
+    {
+      id: nanoid(),
+      title: "Learn React ",
+      description: "description",
+      priority: "high",
+      completed: true,
+      date: "2024-01-07",
+      remindMe: "10:00",
+      group: "Personal",
+    },
+    {
+      id: nanoid(),
+      title: "Learn React ",
+      description: "description",
+      priority: "high",
+      completed: true,
+      date: "2024-01-07",
+      remindMe: "10:00",
+      group: "Personal",
+    },
+    {
+      id: nanoid(),
+      title: "Learn React ",
+      description: "description",
+      priority: "high",
+      completed: true,
+      date: "2024-01-07",
+      remindMe: "10:00",
+      group: "Personal",
+    },
+    {
+      id: nanoid(),
+      title: "Learn PHP ",
+      description: "description",
+      priority: "high",
+      completed: false,
+      date: "2024-01-07",
+      remindMe: "10:00",
+      group: "Personal",
+    },
+    {
+      id: nanoid(),
+      title: "Learn C ",
+      description: "description",
+      priority: "high",
       completed: false,
       date: "2024-01-07",
       remindMe: "10:00",
@@ -25,10 +95,10 @@ const initialState = {
     },
     {
       id: nanoid(),
-      title: "Learn React ",
+      title: "Learn Python ",
       description: "description",
       priority: "medium",
-      completed: false,
+      completed: true,
       date: "2024-01-07",
       remindMe: "10:00",
       group: "Personal",
@@ -95,19 +165,19 @@ export const getFilteredToDo = (state, status, search) => {
   switch (status) {
     case "active":
       data = state.filter(
-        (todo) => !todo.completed && todo.title.includes(search)
+        (todo) => !todo.completed && todo.title?.includes(search)
       );
       break;
 
     case "completed":
       data = state.filter(
-        (todo) => todo.completed && todo.title.includes(search)
+        (todo) => todo.completed && todo.title?.includes(search)
       );
       break;
 
     case "all":
       data = state.filter(
-        (todo) => todo.title.includes(search)
+        (todo) => todo.title?.includes(search)
       );
       break;
   }
