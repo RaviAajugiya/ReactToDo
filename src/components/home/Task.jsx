@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 
+
 function Task(props) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -19,7 +20,7 @@ function Task(props) {
   let time, meridiemTime, dateDay;
 
   const { attributes, listeners, setNodeRef, transform, transition } =
-    useSortable({ id: props.id, axis: "y" });
+    useSortable({ id: props.id });
 
   const style = {
     transform: CSS.Transform.toString(transform),

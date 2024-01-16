@@ -30,7 +30,6 @@ import {
 
 function home() {
   const [status, setStatus] = useState("all");
-  const location = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
@@ -64,7 +63,7 @@ function home() {
     if (container) {
       container.classList.add("shadow");
     }
-    navigate('/')
+    navigate("/");
   };
 
   return (
@@ -74,40 +73,7 @@ function home() {
       sensors={sensors}
     >
       <div className="home">
-        <div className="category-label task-container-label">
-          <span className="">Categories</span>
-          <span>View all</span>
-        </div>
-
-        <div className="category-container">
-          <div
-            className="shadow header-btn all-btn"
-            onClick={(e) => {
-              loadData(e, "all");
-            }}
-          >
-            <FormatListBulleted className="icon" />
-            <span>All</span>
-          </div>
-          <div
-            className="header-btn pending-btn"
-            onClick={(e) => {
-              loadData(e, "active");
-            }}
-          >
-            <PendingActions className="icon" />
-            <span>Pending</span>
-          </div>
-          <div
-            className="header-btn complete-btn"
-            onClick={(e) => {
-              loadData(e, "completed");
-            }}
-          >
-            <CheckCircleOutline className="icon" />
-            <span>Completed</span>
-          </div>
-        </div>
+        
 
         <div className="todo-container">
           <SortableContext items={todos} strategy={verticalListSortingStrategy}>
@@ -127,7 +93,7 @@ function home() {
           </SortableContext>
         </div>
 
-        <div className="footer">
+        {/* <div className="footer">
           <div className="btn suggestion-btn">
             <EmojiObjectsOutlined className="icon" />
             <p>Suggestion</p>
@@ -136,7 +102,7 @@ function home() {
             <Add className="icon" />
             <p>Add Task</p>
           </div>
-        </div>
+        </div> */}
       </div>
     </DndContext>
   );

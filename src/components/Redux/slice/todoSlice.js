@@ -1,58 +1,9 @@
+import { arrayMove } from "@dnd-kit/sortable";
 import { createSlice, nanoid } from "@reduxjs/toolkit";
 import { useNavigate } from "react-router-dom";
 
 const initialState = {
   todos: [
-    {
-      id: nanoid(),
-      title: "Learn React ",
-      description: "description",
-      priority: "high",
-      completed: true,
-      date: "2024-01-07",
-      remindMe: "10:00",
-      group: "Personal",
-    },
-    {
-      id: nanoid(),
-      title: "Learn React ",
-      description: "description",
-      priority: "high",
-      completed: true,
-      date: "2024-01-07",
-      remindMe: "10:00",
-      group: "Personal",
-    },
-    {
-      id: nanoid(),
-      title: "Learn React ",
-      description: "description",
-      priority: "high",
-      completed: true,
-      date: "2024-01-07",
-      remindMe: "10:00",
-      group: "Personal",
-    },
-    {
-      id: nanoid(),
-      title: "Learn React ",
-      description: "description",
-      priority: "high",
-      completed: true,
-      date: "2024-01-07",
-      remindMe: "10:00",
-      group: "Personal",
-    },
-    {
-      id: nanoid(),
-      title: "Learn React ",
-      description: "description",
-      priority: "high",
-      completed: true,
-      date: "2024-01-07",
-      remindMe: "10:00",
-      group: "Personal",
-    },
     {
       id: nanoid(),
       title: "Learn React ",
@@ -144,21 +95,20 @@ export const todoSlice = createSlice({
     },
 
     swapTask: (state, action) => {
-      const index1 = state.todos.findIndex(
-        (e) => e.id === action.payload.active
-      );
-      const index2 = state.todos.findIndex((e) => e.id === action.payload.over);
-
-      [state.todos[index1], state.todos[index2]] = [
-        state.todos[index2],
-        state.todos[index1],
-      ];
+      const { active, over } = action.payload;
+      const activeIndex = state.todos.findIndex((e) => e.id === active);
+      const [movedTask] = state.todos.splice(activeIndex, 1);
+      const overIndex = state.todos.findIndex((e) => e.id === over);
+      if (activeIndex > overIndex) {
+        state.todos.splice(overIndex, 0, movedTask);
+      } else {
+        state.todos.splice(overIndex + 1, 0, movedTask);
+      }
     },
   },
 });
 
 export const getFilteredToDo = (state, status, search) => {
-  const navigate = useNavigate();
   search = search ? search : "";
   // console.log(status, search);
   let data = [];
@@ -176,9 +126,7 @@ export const getFilteredToDo = (state, status, search) => {
       break;
 
     case "all":
-      data = state.filter(
-        (todo) => todo.title?.includes(search)
-      );
+      data = state.filter((todo) => todo.title?.includes(search));
       break;
   }
 

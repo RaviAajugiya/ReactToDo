@@ -10,7 +10,6 @@ import Layout from "./components/Layout";
 import Home from "./components/home/Home";
 import "./style/index.scss";
 import AddTask from "./components/addTask/AddTask";
-import Menu from "./components/menu/Menu";
 import { Provider } from "react-redux";
 import { store } from "./components/Redux/store";
 import { ToastContainer } from "react-toastify";
@@ -22,8 +21,6 @@ const router = createBrowserRouter(
       <Route path="" element={<Home />} />
       <Route path="add" element={<AddTask />} />
       <Route path="edit/:id" element={<AddTask />} />
-
-      <Route path="menu" element={<Menu />} />
     </Route>
   )
 );
