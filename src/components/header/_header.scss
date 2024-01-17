@@ -62,9 +62,9 @@ header {
   }
 
   .searchBox {
-    border: 0.1em solid black;
-    padding: 0.3em 0.7em;
-    border-radius: 0.5em;
-    width: 8em;
+    border: 0.1em solid $light-grey;
+    padding: 0.5em 0.7em;
+    border-radius: 0.35em;
+    width: 50%;
   }
 }

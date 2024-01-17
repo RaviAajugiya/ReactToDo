@@ -1,12 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { Add } from "@mui/icons-material";
+import { Link, NavLink, useNavigate, useParams } from "react-router-dom";
+import { Add, Delete, West } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  addTodo,
-  editToDo,
-  removeTodo,
-} from "../Redux/slice/todoSlice";
+import { addTodo, editToDo, removeTodo } from "../Redux/slice/todoSlice";
 import {
   NotificationsNone,
   CalendarMonth,
@@ -15,6 +11,7 @@ import {
 import { useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 import showNotification from "../../services/notification";
+import Button from "../button/Button";
 
 function AddTask() {
   const [group, setGroup] = useState("");
@@ -23,13 +20,12 @@ function AddTask() {
   const [date, setDate] = useState("");
   const [remindMe, setRemindMe] = useState("");
   const [priority, setPriority] = useState("");
+  const { id } = useParams();
 
   const dispatch = useDispatch();
   const location = useLocation();
   const editData = location.state;
   const navigate = useNavigate();
-
- 
 
   useEffect(() => {
     console.log(editData);
@@ -39,14 +35,27 @@ function AddTask() {
     setDate(editData?.date);
     setRemindMe(editData?.remindMe);
     setPriority(editData?.priority);
-  }, []);
+  }, [editData]);
 
   const handleDelete = (e) => {
     e.preventDefault();
     dispatch(removeTodo(editData.id));
+    navigate('/');
   };
 
   const handleSubmit = (e) => {
+    if (
+      !group ||
+      !title.trim() ||
+      !description.trim() ||
+      !date ||
+      !remindMe ||
+      !priority
+    ) {
+      toast.error("Please fill in all required fields");
+      return;
+    }
+
     e.preventDefault();
     const todo = {
       group,
@@ -57,13 +66,13 @@ function AddTask() {
       remindMe,
     };
     console.log(todo);
-    
+
     if (editData) {
       dispatch(editToDo({ ...todo, id: editData.id }));
-      toast.success(`"${todo.title}" added successfully `);
+      toast.success(`"${todo.title}" edited successfully `);
     } else {
       dispatch(addTodo(todo));
-      toast.success(`"${todo.title}" edited successfully `);
+      toast.success(`"${todo.title}" added successfully `);
     }
 
     if (todo.remindMe) {
@@ -78,90 +87,113 @@ function AddTask() {
         });
       }, timeoutDuration);
     }
+
+    setGroup("");
+    setTitle("");
+    setDescription("");
+    setDate("");
+    setRemindMe("");
+    setPriority("");
     navigate("/");
   };
 
   return (
-    <div className="addTask">
-      <form>
-        <select
-          className="group customArrow"
-          name="group"
-          id=""
-          value={group}
-          onChange={(e) => setGroup(e.target.value)}
-        >
-          <option selected>Group</option>
-          <option value="Work">Work</option>
-          <option value="Personal">Personal</option>
-          <option value="General">General</option>
-        </select>
-        <br />
-        <input
-          type="text"
-          name="title"
-          placeholder="Title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
-        <br />
-        <textarea
-          name="description"
-          id="description"
-          placeholder="Description"
-          cols="40"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        ></textarea>
-        <br />
-
-        <div>
-          <label htmlFor="dueDate">
-            <CalendarMonth className="icon" /> Add due date
-          </label>
-          <input
-            type="date"
-            className="date"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-          />
+    <>
+      <div className="addTask">
+        <div className="addTask-header">
+          <div>
+            <Link to="/">
+              <West className="icon arrow-icon" />
+            </Link>
+            <span>{id ? "Edit" : "Add"} Task</span>
+          </div>
+          {id ? <Delete className="icon"  onClick={handleDelete}/> : null} 
+          {/* </div> */}
+          {/* <Delete className="icon"  onClick={handleDelete}/> */}
         </div>
-        <div>
-          <label htmlFor="remind">
-            <NotificationsNone className="icon" /> Remind me at
-          </label>
-          <input
-            type="time"
-            className="time"
-            value={remindMe}
-            onChange={(e) => setRemindMe(e.target.value)}
-          />
-        </div>
-        <div>
-          <label htmlFor="priority">
-            <FlagOutlined className="icon" />
-            Priority
-          </label>
+        <form onSubmit={handleSubmit}>
           <select
-            name=""
+            required
+            className="group customArrow"
+            name="group"
             id=""
-            className="priority"
-            value={priority}
-            onChange={(e) => setPriority(e.target.value)}
-          >
-            <option selected>Priority</option>
-            <option value="high">High</option>
-            <option value="medium">Medium</option>
-            <option value="low">Low</option>
+            value={group}
+            onChange={(e) => setGroup(e.target.value)}>
+            <option selected>Group</option>
+            <option value="Work">Work</option>
+            <option value="Personal">Personal</option>
+            <option value="General">General</option>
           </select>
-        </div>
-      </form>
-      <div className="footer">
-        <div className="btn save-btn" onClick={handleSubmit}>
-          <p>Save</p>
+          <br />
+          <input
+            required
+            type="text"
+            name="title"
+            placeholder="Title"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
+          <br />
+          <textarea
+            required
+            name="description"
+            id="description"
+            placeholder="Description"
+            cols="40"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}></textarea>
+          <br />
+
+          <div>
+            <label htmlFor="dueDate">
+              <CalendarMonth className="icon" /> Add due date
+            </label>
+            <input
+              required
+              type="date"
+              className="date"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+            />
+          </div>
+          <div>
+            <label htmlFor="remind">
+              <NotificationsNone className="icon" /> Remind me at
+            </label>
+            <input
+              required
+              type="time"
+              className="time"
+              value={remindMe}
+              onChange={(e) => setRemindMe(e.target.value)}
+            />
+          </div>
+          <div>
+            <label htmlFor="priority">
+              <FlagOutlined className="icon" />
+              Priority
+            </label>
+            <select
+              required
+              name=""
+              id=""
+              className="priority"
+              value={priority}
+              onChange={(e) => setPriority(e.target.value)}>
+              <option selected>Priority</option>
+              <option value="high">High</option>
+              <option value="medium">Medium</option>
+              <option value="low">Low</option>
+            </select>
+          </div>
+        </form>
+        <div className="footer">
+          <Link to="/" onClick={handleSubmit}>
+            <Button text="Save" />
+          </Link>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

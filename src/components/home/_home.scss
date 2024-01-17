@@ -1,13 +1,34 @@
 @import "./../../style/variable";
 
 .home {
-  width: 50%;
-  height: calc(100vh - 4em - 1.2em);
+  width: 100%;
+  // height: calc(100vh - 4em - 1.2em);
   overflow-y: scroll;
 
   &::-webkit-scrollbar {
     width: 0;
   }
+
+
+  .add-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: $primary-color;
+    width: 3em;
+    height: 3em;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  
+    .icon {
+      background-color: $primary-color;
+      color: $bg-color;
+    }
+  }
+  
 
   // .task-container-label {
   //   margin: 1em 0em 0.5em 0em;
@@ -127,47 +148,7 @@
       }
     }
   }
-
-  .footer {
-    background-color: $white;
-
-    div {
-      display: flex;
-      align-items: center;
-    }
-
-    .save-btn {
-      width: 7em;
-    }
-
-    .suggestion-btn,
-    .add-btn {
-      width: calc((100vw - 3em) / 2);
-    }
-
-    .icon {
-      width: 1.5em;
-      height: 1.5em;
-    }
-
-    .suggestion-btn {
-      color: $dark-green;
-      background-color: $white;
-
-      border: 0.1em solid $light-grey;
-
-      p,
-      .icon {
-        color: $dark-green;
-        background-color: $white;
-        font-weight: 400 !important;
-      }
-    }
-
-    .add-btn,
-    .add-btn > * {
-      background-color: $dark-green;
-      color: $white;
-    }
-  }
 }
+
+
+

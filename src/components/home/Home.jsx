@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { FormatListBulleted } from "@mui/icons-material";
+import {
+  FormatListBulleted,
+  PlaylistAddCheckCircle,
+} from "@mui/icons-material";
 import Task from "./Task";
 import {
   WatchLaterOutlined,
@@ -11,8 +14,13 @@ import {
   CheckCircleOutline,
 } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
-import { getFilteredToDo, swapTask } from "../Redux/slice/todoSlice";
-import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
+import { clearFilters, getFilteredToDo, setFilterSearch, setFilterStatus, swapTask } from "../Redux/slice/todoSlice";
+import {
+  Link,
+  useLocation,
+  useNavigate,
+  useSearchParams,
+} from "react-router-dom";
 import {
   DndContext,
   closestCenter,
@@ -27,11 +35,11 @@ import {
   SortableContext,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
+import Button from "../button/Button";
 
 function home() {
   const [status, setStatus] = useState("all");
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const [search, setSearch] = useState("");
   const [searchParams] = useSearchParams();
 
@@ -43,38 +51,19 @@ function home() {
       activationConstraint: { delay: 200 },
     })
   );
-
-  const searchVal = searchParams.get("search");
-
-  useEffect(() => {
-    setSearch(searchParams.get("search"));
-  }, [searchVal]);
-
-  const todos = getFilteredToDo(
-    useSelector((state) => state.todos),
-    status,
-    search
-  );
-
-  const loadData = (e, status) => {
-    document.querySelector(".shadow")?.classList.remove("shadow");
-    setStatus(status);
-    const container = e.target.closest(".header-btn");
-    if (container) {
-      container.classList.add("shadow");
-    }
-    navigate("/");
-  };
+  
+  // dispatch(setFilterStatus('completed'));
+  
+  const todos = getFilteredToDo(useSelector((state) => state));
+  
 
   return (
     <DndContext
       collisionDetection={closestCenter}
       onDragEnd={handleDragEnd}
-      sensors={sensors}
-    >
+      sensors={sensors}>
       <div className="home">
-        
-
+        <div>Sort by </div>
         <div className="todo-container">
           <SortableContext items={todos} strategy={verticalListSortingStrategy}>
             {todos.map((todo) => (
@@ -92,17 +81,11 @@ function home() {
             ))}
           </SortableContext>
         </div>
-
-        {/* <div className="footer">
-          <div className="btn suggestion-btn">
-            <EmojiObjectsOutlined className="icon" />
-            <p>Suggestion</p>
-          </div>
-          <div className="btn add-btn" onClick={() => navigate("/add")}>
+        <Link to="/add">
+          <div className="add-btn">
             <Add className="icon" />
-            <p>Add Task</p>
           </div>
-        </div> */}
+        </Link>
       </div>
     </DndContext>
   );

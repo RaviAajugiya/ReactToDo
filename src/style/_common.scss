@@ -26,43 +26,28 @@ body::-webkit-scrollbar {
   padding: 0;
 }
 
-.btn {
+.main-container {
   display: flex;
-  justify-content: center;
-  text-align: center;
-  gap: 0.5em;
-  font-weight: 500;
-  width: fit-content;
-  padding: 0.5em 1em;
-  height: 3em;
-  border-radius: 0.6em;
-  background-color: $dark-green;
-
-  p,
-  .icon {
-    background-color: $dark-green;
-    color: $white;
-    font-size: 1.1em;
-  }
-}
-
-.main-container{
-  display: flex;
+  flex-direction: column;
   gap: 2em;
 }
 
+.addTask{
+  position: relative;
+}
+
 .footer {
-  position: fixed;
+  position: absolute;
   bottom: 0;
-  left: 50%;
-  transform: translate(-50%, 0);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0.7em;
   height: 4.5em;
   font-weight: 400 !important;
+  width: 100%;
+
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center;
 }
+
 
 @media only screen and (max-width: 600px) {
 }
@@ -71,9 +56,34 @@ body::-webkit-scrollbar {
 }
 
 @media only screen and (min-width: 769px) {
+  .main-container {
+    flex-direction: row;
 
+    .category-container {
+      width: 25%;
+    }
+
+    .home {
+      width: 50%;
+    }
+
+    .addTask {
+      min-width: 25%;
+    }
+  }
+
+  .arrow-icon{
+    display: none !important;
+  }
+
+  .add-btn {
+    display: none !important;
+  }
+
+  .footer {
+
+  }
 }
 
 @media only screen and (min-width: 993px) {
-
 }

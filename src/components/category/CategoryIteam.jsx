@@ -1,13 +1,19 @@
 import React from "react";
 
-function CategoryIteam({ text, icon , classProps }) {
+function CategoryIteam({ text, icon, setParam, active }) {
+  const handleClick = () => {
+    setParam(text.toLowerCase());
+  };
+
   return (
-    <div className={`categoryIteam ${classProps}`}>
+    <div
+      onClick={handleClick}
+      className={`categoryIteam ${active ? "active-iteam" : ""}`}
+    >
       <div>
         {icon}
         <span>{text}</span>
       </div>
-      {/* <div>10</div> */}
     </div>
   );
 }

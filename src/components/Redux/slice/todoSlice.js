@@ -55,6 +55,12 @@ const initialState = {
       group: "Personal",
     },
   ],
+  filterTodo: {
+    status: "all",
+    search: "",
+    group: "",
+    date: "",
+  },
 };
 
 export const todoSlice = createSlice({
@@ -105,30 +111,47 @@ export const todoSlice = createSlice({
         state.todos.splice(overIndex + 1, 0, movedTask);
       }
     },
+
+    setFilterStatus: (state, action) => {
+      state.filterTodo.status = action.payload;
+    },
+
+    setFilterSearch: (state, action) => {
+      state.filterTodo.search = action.payload;
+    },
+
+    setFilterGroup: (state, action) => {
+      state.filterTodo.group = action.payload;
+    },
+
+    setFilterDate: (state, action) => {
+      state.filterTodo.date = action.payload;
+    },
+
+    clearFilters: (state) => {
+      state.filterTodo = {
+        status: "all",
+        search: "",
+        group: "",
+        date: "",
+      };
+    },
   },
 });
 
-export const getFilteredToDo = (state, status, search) => {
-  search = search ? search : "";
-  // console.log(status, search);
-  let data = [];
-  switch (status) {
-    case "active":
-      data = state.filter(
-        (todo) => !todo.completed && todo.title?.includes(search)
-      );
-      break;
+export const getFilteredToDo = (state) => {
+  const { status, search, group, date } = state.filterTodo;
 
-    case "completed":
-      data = state.filter(
-        (todo) => todo.completed && todo.title?.includes(search)
-      );
-      break;
-
-    case "all":
-      data = state.filter((todo) => todo.title?.includes(search));
-      break;
-  }
+  let data = state.todos.filter((todo) => {
+    return (
+      (status === "all" ||
+        (status === "pending" && !todo.completed) ||
+        (status === "completed" && todo.completed)) &&
+      todo.title?.includes(search) &&
+      (group === "" || todo.group === group) &&
+      (date === "" || todo.date === date)
+    );
+  });
 
   return data;
 };
@@ -140,6 +163,11 @@ export const {
   setToDoState,
   setHelperId,
   swapTask,
+  setFilterStatus,
+  setFilterSearch,
+  setFilterGroup,
+  setFilterDate,
+  clearFilters,
 } = todoSlice.actions;
 
 export default todoSlice.reducer;

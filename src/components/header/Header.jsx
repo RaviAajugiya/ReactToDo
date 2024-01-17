@@ -16,7 +16,7 @@ import {
   useParams,
 } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { removeTodo } from "../Redux/slice/todoSlice";
+import { removeTodo, setFilterSearch } from "../Redux/slice/todoSlice";
 import { toast } from "react-toastify";
 
 function Header() {
@@ -28,12 +28,7 @@ function Header() {
 
   const searchToDo = (e) => {
     if (e.key === "Enter") {
-      navigate({
-        pathname: "/",
-        search: createSearchParams({
-          search: e.target.value,
-        }).toString(),
-      });
+      dispatch(setFilterSearch(e.target.value));
       setSearch("");
     }
   };
@@ -61,10 +56,7 @@ function Header() {
         <div>
           <Checklist className="icon checklist-icon" />
           <span className="brand-text">Task Ease</span>
-          {/* <Link to="/">
-                <West className="icon arrow-icon" />
-              </Link>
-              <span className="brand-text">{id ? "Edit" : "Add"} Task</span> */}
+          
         </div>
         <input
           type="text"
@@ -75,7 +67,7 @@ function Header() {
           onKeyUp={(e) => searchToDo(e)}
         />
         <AccountCircle fontSize="large" />
-      </header>
+      </header> 
     </>
   );
 }
