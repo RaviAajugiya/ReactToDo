@@ -36,6 +36,76 @@ const initialState = {
     },
     {
       id: nanoid(),
+      title: "Learn C ",
+      description: "description",
+      priority: "high",
+      completed: false,
+      date: "2024-01-07",
+      remindMe: "10:00",
+      group: "Personal",
+    },
+    {
+      id: nanoid(),
+      title: "Learn C ",
+      description: "description",
+      priority: "high",
+      completed: false,
+      date: "2024-01-07",
+      remindMe: "10:00",
+      group: "Personal",
+    },
+    {
+      id: nanoid(),
+      title: "Learn C ",
+      description: "description",
+      priority: "high",
+      completed: false,
+      date: "2024-01-07",
+      remindMe: "10:00",
+      group: "Personal",
+    },
+    {
+      id: nanoid(),
+      title: "Learn C ",
+      description: "description",
+      priority: "high",
+      completed: false,
+      date: "2024-01-07",
+      remindMe: "10:00",
+      group: "Personal",
+    },
+    {
+      id: nanoid(),
+      title: "Learn C ",
+      description: "description",
+      priority: "high",
+      completed: false,
+      date: "2024-01-07",
+      remindMe: "10:00",
+      group: "Personal",
+    },
+    {
+      id: nanoid(),
+      title: "Learn C ",
+      description: "description",
+      priority: "high",
+      completed: false,
+      date: "2024-01-07",
+      remindMe: "10:00",
+      group: "Personal",
+    },
+    {
+      id: nanoid(),
+      title: "Learn C ",
+      description: "description",
+      priority: "high",
+      completed: false,
+      date: "2024-01-07",
+      remindMe: "10:00",
+      group: "Personal",
+    },
+    {
+      id: nanoid(),
       title: "Learn Js ",
       description: "description",
       priority: "low",
@@ -60,7 +130,9 @@ const initialState = {
     search: "",
     group: "",
     date: "",
+    sortBy: "date",
   },
+  addTaskState: false,
 };
 
 export const todoSlice = createSlice({
@@ -134,13 +206,22 @@ export const todoSlice = createSlice({
         search: "",
         group: "",
         date: "",
+
       };
+    },
+
+    setAddTaskState : (state,action) => {
+      state.addTaskState = action.payload
+    },
+
+    setSortBy: (state, action) => {
+      state.filterTodo.sortBy = action.payload;
     },
   },
 });
 
 export const getFilteredToDo = (state) => {
-  const { status, search, group, date } = state.filterTodo;
+  const { status, search, group, date, sortBy } = state.filterTodo;
 
   let data = state.todos.filter((todo) => {
     return (
@@ -152,6 +233,12 @@ export const getFilteredToDo = (state) => {
       (date === "" || todo.date === date)
     );
   });
+
+  if (sortBy === "date") {
+    data.sort((a, b) => new Date(a.date) - new Date(b.date));
+  } else if (sortBy === "title") {
+    data.sort((a, b) => a.title.localeCompare(b.title));
+  }
 
   return data;
 };
@@ -168,6 +255,7 @@ export const {
   setFilterGroup,
   setFilterDate,
   clearFilters,
+  setAddTaskState,
 } = todoSlice.actions;
 
 export default todoSlice.reducer;

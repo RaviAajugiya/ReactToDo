@@ -5,10 +5,12 @@ import Category from "./category/Category";
 import Task from "./home/Task";
 import AddTask from "./addTask/AddTask";
 import Home from "./home/Home.jsx";
+import { useSelector } from "react-redux";
 
 function Layout() {
   const location = useLocation();
   const [isWideScreen, setIsWideScreen] = useState(window.innerWidth > 769);
+
 
   useLayoutEffect(() => {
     const handleResize = () => {
@@ -33,7 +35,7 @@ function Layout() {
           <>
             {/* {location.pathname === "/" && <Home />} */}
             <Home />
-            <AddTask />
+            {location.pathname !== "/" && <AddTask />}
           </>
         ) : (
           <Outlet />

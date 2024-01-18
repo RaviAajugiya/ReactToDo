@@ -7,7 +7,7 @@ import {
 } from "@mui/icons-material";
 
 import { useDispatch, useSelector } from "react-redux";
-import { setToDoState } from "../Redux/slice/todoSlice";
+import { setAddTaskState, setToDoState } from "../Redux/slice/todoSlice";
 import { useNavigate } from "react-router-dom";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
@@ -37,6 +37,7 @@ function Task(props) {
   }
 
   const getDetail = (e) => {
+    dispatch(setAddTaskState(true));
     if (e.target.nodeName !== "INPUT") {
       navigate(`/edit/${props.id}`, { state: props });
     }

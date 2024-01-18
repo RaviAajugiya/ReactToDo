@@ -63,7 +63,6 @@ function home() {
       onDragEnd={handleDragEnd}
       sensors={sensors}>
       <div className="home">
-        <div>Sort by </div>
         <div className="todo-container">
           <SortableContext items={todos} strategy={verticalListSortingStrategy}>
             {todos.map((todo) => (

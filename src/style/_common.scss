@@ -38,7 +38,6 @@ body::-webkit-scrollbar {
 
 .footer {
   position: absolute;
-  bottom: 0;
   height: 4.5em;
   font-weight: 400 !important;
   width: 100%;
@@ -60,29 +59,27 @@ body::-webkit-scrollbar {
     flex-direction: row;
 
     .category-container {
-      width: 25%;
+      width: 20em;
     }
 
     .home {
-      width: 50%;
+      width: 100%;
     }
 
-    .addTask {
-      min-width: 25%;
-    }
   }
 
-  .arrow-icon{
-    display: none !important;
+  .addTask{
+    width: 35em;
   }
+
+  // .arrow-icon{
+  //   display: none !important;
+  // }
 
   .add-btn {
     display: none !important;
   }
 
-  .footer {
-
-  }
 }
 
 @media only screen and (min-width: 993px) {

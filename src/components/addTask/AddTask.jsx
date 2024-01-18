@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, NavLink, useNavigate, useParams } from "react-router-dom";
 import { Add, Delete, West } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
-import { addTodo, editToDo, removeTodo } from "../Redux/slice/todoSlice";
+import { addTodo, editToDo, removeTodo, setAddTaskState } from "../Redux/slice/todoSlice";
 import {
   NotificationsNone,
   CalendarMonth,
@@ -99,7 +99,7 @@ function AddTask() {
 
   return (
     <>
-      <div className="addTask">
+      <div className="addTask fade-in">
         <div className="addTask-header">
           <div>
             <Link to="/">
@@ -107,7 +107,7 @@ function AddTask() {
             </Link>
             <span>{id ? "Edit" : "Add"} Task</span>
           </div>
-          {id ? <Delete className="icon"  onClick={handleDelete}/> : null} 
+          {id ? <Delete className="icon" onClick={handleDelete} /> : null}
           {/* </div> */}
           {/* <Delete className="icon"  onClick={handleDelete}/> */}
         </div>
@@ -118,7 +118,8 @@ function AddTask() {
             name="group"
             id=""
             value={group}
-            onChange={(e) => setGroup(e.target.value)}>
+            onChange={(e) => setGroup(e.target.value)}
+          >
             <option selected>Group</option>
             <option value="Work">Work</option>
             <option value="Personal">Personal</option>
@@ -141,7 +142,8 @@ function AddTask() {
             placeholder="Description"
             cols="40"
             value={description}
-            onChange={(e) => setDescription(e.target.value)}></textarea>
+            onChange={(e) => setDescription(e.target.value)}
+          ></textarea>
           <br />
 
           <div>
@@ -179,7 +181,8 @@ function AddTask() {
               id=""
               className="priority"
               value={priority}
-              onChange={(e) => setPriority(e.target.value)}>
+              onChange={(e) => setPriority(e.target.value)}
+            >
               <option selected>Priority</option>
               <option value="high">High</option>
               <option value="medium">Medium</option>

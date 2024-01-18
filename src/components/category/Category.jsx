@@ -1,16 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { createSearchParams, useLocation, useNavigate } from "react-router-dom";
 import CategoryIteam from "./CategoryIteam";
-import { DeleteForever, Checklist, PendingActions } from "@mui/icons-material";
+import {
+  FormatListBulleted,
+  CheckCircleOutline,
+  PendingActions,
+  ImportExport,
+} from "@mui/icons-material";
 import { clearFilters, setFilterStatus } from "../Redux/slice/todoSlice";
 import { useDispatch } from "react-redux";
 
 function Category() {
-  const location = useLocation();
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const [activeStatus, setActiveStatus] = useState("all");
+  const [isSortItemsVisible, setSortItemsVisible] = useState(false);
 
   const handleItemClick = (clickedStatus) => {
     dispatch(clearFilters());
@@ -21,35 +25,51 @@ function Category() {
     });
   };
 
+  const toggleSortItems = () => {
+    setSortItemsVisible(!isSortItemsVisible);
+  };
+
   return (
     <div className="category-container">
       <div className="category-label task-container-label">
-        <span className="">Categories</span>
-        <span>View all</span>
+        <span>Categories</span>
+        <span onClick={toggleSortItems}>
+          <ImportExport /> Sort
+        </span>
+        {isSortItemsVisible && (
+          <div className="sort-items">
+            <ul>
+              <li>
+                <div>
+                  <span>Due Date</span>
+                </div>
+              </li>
+              <li>
+                <div>
+                  <span>Alphabetically</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+        )}
       </div>
       <div className="categoryIteam-container">
         <CategoryIteam
           text="All"
           setParam={handleItemClick}
-          icon={<DeleteForever className="icon" />}
+          icon={<FormatListBulleted className="icon" />}
           active={activeStatus === "all"}
         />
         <CategoryIteam
           text="Pending"
           setParam={handleItemClick}
-          icon={<Checklist className="icon" />}
+          icon={<PendingActions className="icon" />}
           active={activeStatus === "pending"}
         />
         <CategoryIteam
           text="Completed"
           setParam={handleItemClick}
-          icon={<PendingActions className="icon" />}
-          active={activeStatus === "completed"}
-        />
-        <CategoryIteam
-          text="Date"
-          setParam={handleItemClick}
-          icon={<PendingActions className="icon" />}
+          icon={<CheckCircleOutline className="icon" />}
           active={activeStatus === "completed"}
         />
       </div>
