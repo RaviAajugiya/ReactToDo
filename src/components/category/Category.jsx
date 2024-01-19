@@ -5,7 +5,6 @@ import {
   FormatListBulleted,
   CheckCircleOutline,
   PendingActions,
-  ImportExport,
 } from "@mui/icons-material";
 import { clearFilters, setFilterStatus } from "../Redux/slice/todoSlice";
 import { useDispatch } from "react-redux";
@@ -14,7 +13,6 @@ function Category() {
   const dispatch = useDispatch();
 
   const [activeStatus, setActiveStatus] = useState("all");
-  const [isSortItemsVisible, setSortItemsVisible] = useState(false);
 
   const handleItemClick = (clickedStatus) => {
     dispatch(clearFilters());
@@ -25,33 +23,12 @@ function Category() {
     });
   };
 
-  const toggleSortItems = () => {
-    setSortItemsVisible(!isSortItemsVisible);
-  };
+  
 
   return (
     <div className="category-container">
       <div className="category-label task-container-label">
         <span>Categories</span>
-        <span onClick={toggleSortItems}>
-          <ImportExport /> Sort
-        </span>
-        {isSortItemsVisible && (
-          <div className="sort-items">
-            <ul>
-              <li>
-                <div>
-                  <span>Due Date</span>
-                </div>
-              </li>
-              <li>
-                <div>
-                  <span>Alphabetically</span>
-                </div>
-              </li>
-            </ul>
-          </div>
-        )}
       </div>
       <div className="categoryIteam-container">
         <CategoryIteam

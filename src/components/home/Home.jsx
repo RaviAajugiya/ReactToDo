@@ -1,26 +1,22 @@
 import React, { useEffect, useState } from "react";
-import {
-  FormatListBulleted,
-  PlaylistAddCheckCircle,
-} from "@mui/icons-material";
 import Task from "./Task";
 import {
-  WatchLaterOutlined,
-  FiberManualRecord,
-  Flag,
   Add,
-  EmojiObjectsOutlined,
-  PendingActions,
-  CheckCircleOutline,
+  KeyboardArrowUp,
+  KeyboardArrowDown,
+  ImportExport,
+  Close,
 } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
-import { clearFilters, getFilteredToDo, setFilterSearch, setFilterStatus, swapTask } from "../Redux/slice/todoSlice";
 import {
-  Link,
-  useLocation,
-  useNavigate,
-  useSearchParams,
-} from "react-router-dom";
+  clearFilters,
+  getFilteredToDo,
+  setFilterSearch,
+  setFilterStatus,
+  setSortBy,
+  swapTask,
+} from "../Redux/slice/todoSlice";
+import { Link, useSearchParams } from "react-router-dom";
 import {
   DndContext,
   closestCenter,
@@ -35,13 +31,16 @@ import {
   SortableContext,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
-import Button from "../button/Button";
 
 function home() {
   const [status, setStatus] = useState("all");
   const dispatch = useDispatch();
   const [search, setSearch] = useState("");
   const [searchParams] = useSearchParams();
+  const [isSortOrderAsc, setIsSortOrderAsc] = useState(false);
+  const [isSortActive, setIsSortActive] = useState(false);
+  const [isSortItemsVisible, setSortItemsVisible] = useState(false);
+  const [sortLabel, setSortLabel] = useState("");
 
   const sensors = useSensors(
     useSensor(MouseSensor, {
@@ -51,11 +50,23 @@ function home() {
       activationConstraint: { delay: 200 },
     })
   );
-  
-  // dispatch(setFilterStatus('completed'));
-  
+
+  const handleSortOrder = () => {
+    setIsSortOrderAsc(!isSortOrderAsc);
+  };
+
+  const handleSort = (e) => {
+    setSortItemsVisible(false);
+    setSortLabel(e.target.innerText);
+    setIsSortActive(true);
+    console.log(e.target.innerText.toLowerCase().split(" ").join(""));
+    dispatch(setSortBy(e.target.innerText.toLowerCase().split(" ").join("")));
+  };
+
+  const toggleSortItems = () => {
+    setSortItemsVisible(!isSortItemsVisible);
+  };
   const todos = getFilteredToDo(useSelector((state) => state));
-  
 
   return (
     <DndContext
@@ -63,6 +74,51 @@ function home() {
       onDragEnd={handleDragEnd}
       sensors={sensors}>
       <div className="home">
+        <div className="sort-container">
+          <span onClick={toggleSortItems}>
+            <ImportExport /> Sort
+          </span>
+          {isSortItemsVisible && (
+            <div className="sort-items">
+              <ul>
+                <li onClick={(e) => handleSort(e)}>
+                  <div>
+                    <span>Due Date</span>
+                  </div>
+                </li>
+                <hr />
+                <li onClick={(e) => handleSort(e)}>
+                  <div>
+                    <span>Alphabetically</span>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          )}
+          {isSortActive ? (
+            <div className="sort-label">
+              {isSortOrderAsc ? (
+                <KeyboardArrowUp
+                  className="icon"
+                  onClick={() => handleSortOrder()}
+                />
+              ) : (
+                <KeyboardArrowDown
+                  className="icon"
+                  onClick={() => handleSortOrder()}
+                />
+              )}
+              <p>
+                Sorted by <strong>{sortLabel}</strong>{" "}
+              </p>
+              <Close
+                className="icon close-icon"
+                onClick={() => setIsSortActive(false)}
+              />
+            </div>
+          ) : null}
+        </div>
+
         <div className="todo-container">
           <SortableContext items={todos} strategy={verticalListSortingStrategy}>
             {todos.map((todo) => (

@@ -10,7 +10,7 @@ const initialState = {
       description: "description",
       priority: "high",
       completed: true,
-      date: "2024-01-07",
+      date: "2024-01-08",
       remindMe: "10:00",
       group: "Personal",
     },
@@ -20,13 +20,13 @@ const initialState = {
       description: "description",
       priority: "high",
       completed: false,
-      date: "2024-01-07",
+      date: "2024-01-08",
       remindMe: "10:00",
       group: "Personal",
     },
     {
       id: nanoid(),
-      title: "Learn C ",
+      title: "Learn D ",
       description: "description",
       priority: "high",
       completed: false,
@@ -46,7 +46,7 @@ const initialState = {
     },
     {
       id: nanoid(),
-      title: "Learn C ",
+      title: "Learn B ",
       description: "description",
       priority: "high",
       completed: false,
@@ -56,11 +56,11 @@ const initialState = {
     },
     {
       id: nanoid(),
-      title: "Learn C ",
+      title: "Learn A ",
       description: "description",
       priority: "high",
       completed: false,
-      date: "2024-01-07",
+      date: "2024-01-10",
       remindMe: "10:00",
       group: "Personal",
     },
@@ -130,7 +130,7 @@ const initialState = {
     search: "",
     group: "",
     date: "",
-    sortBy: "date",
+    sortBy: "alphabetically",
   },
   addTaskState: false,
 };
@@ -234,9 +234,9 @@ export const getFilteredToDo = (state) => {
     );
   });
 
-  if (sortBy === "date") {
+  if (sortBy === "duedate") {
     data.sort((a, b) => new Date(a.date) - new Date(b.date));
-  } else if (sortBy === "title") {
+  } else if (sortBy === "alphabetically") {
     data.sort((a, b) => a.title.localeCompare(b.title));
   }
 
@@ -256,6 +256,7 @@ export const {
   setFilterDate,
   clearFilters,
   setAddTaskState,
+  setSortBy
 } = todoSlice.actions;
 
 export default todoSlice.reducer;
