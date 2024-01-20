@@ -234,10 +234,17 @@ export const getFilteredToDo = (state) => {
     );
   });
 
-  if (sortBy === "duedate") {
-    data.sort((a, b) => new Date(a.date) - new Date(b.date));
-  } else if (sortBy === "alphabetically") {
-    data.sort((a, b) => a.title.localeCompare(b.title));
+  const sortDate = (a, b) => {
+    if (sortBy === "duedate") {
+      return new Date(a.date) - new Date(b.date);
+    } else if (sortBy === "alphabetically") {
+      return a.title.localeCompare(b.title);
+    } 
+  };
+
+  data.sort(sortDate);
+  if (sortBy.endsWith("_desc")) {
+    data.reverse();
   }
 
   return data;

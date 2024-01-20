@@ -56,11 +56,19 @@ function home() {
   };
 
   const handleSort = (e) => {
+    let sortby = e.target.innerText.toLowerCase().split(" ").join("");
+
+    // if (!isSortOrderAsc) {
+    //   sortby = sortby + "_dsce";
+    // }
+
+    console.log(sortby);
+
     setSortItemsVisible(false);
     setSortLabel(e.target.innerText);
     setIsSortActive(true);
-    console.log(e.target.innerText.toLowerCase().split(" ").join(""));
-    dispatch(setSortBy(e.target.innerText.toLowerCase().split(" ").join("")));
+
+    dispatch(setSortBy(sortby));
   };
 
   const toggleSortItems = () => {
@@ -72,7 +80,8 @@ function home() {
     <DndContext
       collisionDetection={closestCenter}
       onDragEnd={handleDragEnd}
-      sensors={sensors}>
+      sensors={sensors}
+    >
       <div className="home">
         <div className="sort-container">
           <span onClick={toggleSortItems}>

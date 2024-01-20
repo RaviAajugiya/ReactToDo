@@ -1,7 +1,12 @@
-@import './../components/header/header';
-@import './../components/home/home';
-@import './variable';
-@import './../components/addTask/addTask';
-@import './common';
-@import './../components/category/category';
-@import './../components/button/button';
+@import "./../components/header/header";
+@import "./../components/home/home";
+@import "./variable";
+@import "./../components/addTask/addTask";
+@import "./common";
+@import "./../components/category/category";
+@import "./../components/button/button";
+
+div {
+  background-color: var(--bg);
+  color: var(--primary);
+}
