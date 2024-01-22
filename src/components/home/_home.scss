@@ -1,24 +1,30 @@
 @import "./../../style/variable";
 
 .home {
+  // box-shadow: inset rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+  // box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;
   width: 100%;
-  height: calc(100vh - 4em - 1.2em);
+  height: 94vh;
   overflow-y: scroll;
+  padding: 0em 1em;
+  position: relative;
+  // margin-top: 1em;
 
   &::-webkit-scrollbar {
     width: 0;
   }
 
   .sort-container {
+    margin-top: 1em;
     display: flex;
     justify-content: space-between;
     position: relative;
 
-    .sort-items{
+    .sort-items {
       position: absolute;
       top: 2em;
 
-      ul{
+      ul {
         padding: 0.5em;
         list-style: none;
         display: flex;
@@ -29,7 +35,7 @@
       }
     }
 
-    span{
+    span {
       display: flex;
       align-items: center;
     }
@@ -51,14 +57,14 @@
   }
 
   .add-btn {
-    position: fixed;
+    position: absolute;
     bottom: 20px;
     right: 20px;
     background-color: $primary-color;
     width: 3em;
     height: 3em;
     border-radius: 50%;
-    display: flex;
+    display: flex !important;
     align-items: center;
     justify-content: center;
     cursor: pointer;
@@ -69,33 +75,9 @@
     }
   }
 
-  // .task-container-label {
-  //   margin: 1em 0em 0.5em 0em;
-  // }
-
-  // .shadow {
-  //   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-  // }
-
-  // .category-label {
-  //   display: flex;
-  //   justify-content: space-between;
-
-  //   span {
-  //     font-size: 1.1em;
-
-  //     &:first-child {
-  //       font-weight: 600;
-  //     }
-  //     &:last-child {
-  //       color: $light-grey;
-  //     }
-  //   }
-  // }
-
-  // .category-
-
   .task {
+    
+    background-color: var(--light-bg);
     cursor: pointer;
     touch-action: none;
     height: 5em;
@@ -103,12 +85,26 @@
     margin-top: 0.6em;
     justify-content: space-between;
     align-items: center;
-    border: 0.05em solid $light-grey;
+    // border: 0.05em solid $light-grey;
+    border: 0.05em solid $light-border;
+
+    box-shadow: 0 0 5px var(--shadow);
+
     // box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
     padding: 0.9em;
     border-radius: 0.8em;
 
+    .icon{
+      background-color: var(--light-bg) !important;
+
+    }
+
     .task-item {
+      background-color: var(--light-bg) !important;
+
+      * {
+        background-color: var(--light-bg);
+      }
       display: flex;
       gap: 1.3em;
 
@@ -149,13 +145,13 @@
     }
 
     .priority-high {
-      color: $light-red;
+      color: $light-red !important;
     }
     .priority-low {
-      color: $light-yellow;
+      color: $light-yellow !important;
     }
     .priority-medium {
-      color: $light-green;
+      color: $light-green !important;
     }
 
     span:first-child {
@@ -165,9 +161,11 @@
   }
   .completed-task,
   .completed-task > * {
-    background-color: $light-bg;
+    background-color: var(--light-bg) !important;
+
     p {
-      background-color: $light-bg;
+      background-color: var(--light-bg) !important;
+
     }
   }
 

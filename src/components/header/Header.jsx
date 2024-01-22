@@ -1,13 +1,5 @@
 import React, { useState } from "react";
-import {
-  DeleteForever,
-  Checklist,
-  AccountCircle,
-  West,
-  FormatListBulleted,
-  PendingActions,
-  CheckCircleOutline,
-} from "@mui/icons-material";
+import { Checklist, DarkMode, LightMode } from "@mui/icons-material";
 import {
   Link,
   createSearchParams,
@@ -18,6 +10,9 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import { removeTodo, setFilterSearch } from "../Redux/slice/todoSlice";
 import { toast } from "react-toastify";
+import { InputAdornment } from "@mui/material";
+import { useTheme } from "../../Theme/ThemeContext";
+import { setTheme } from "../../Theme/Theme";
 
 function Header() {
   const location = useLocation();
@@ -25,6 +20,12 @@ function Header() {
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
   const { id } = useParams();
+
+  const { theme, toggleTheme } = useTheme();
+
+  React.useEffect(() => {
+    setTheme(theme);
+  }, [theme]);
 
   const searchToDo = (e) => {
     if (e.key === "Enter") {
@@ -56,7 +57,6 @@ function Header() {
         <div>
           <Checklist className="icon checklist-icon" />
           <span className="brand-text">Task Ease</span>
-          
         </div>
         <input
           type="text"
@@ -66,8 +66,14 @@ function Header() {
           onChange={(e) => setSearch(e.target.value)}
           onKeyUp={(e) => searchToDo(e)}
         />
-        <AccountCircle fontSize="large" />
-      </header> 
+        <div onClick={toggleTheme}>
+          {theme == "light" ? (
+            <LightMode fontSize="medium" />
+          ) : (
+            <DarkMode fontSize="medium" />
+          )}
+        </div>
+      </header>
     </>
   );
 }

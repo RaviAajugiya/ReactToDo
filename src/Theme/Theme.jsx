@@ -3,11 +3,18 @@ export const setTheme = (theme) => {
   const themeVariables = {
     light: {
       "--bg": "#faf9f8",
-      "--primary": "#000000",
+      "--text": "#11100f",
+      "--light-bg": "#ffffff",
+      "--shadow": "rgba(0, 0, 0, 0.2)",
+      "--border": "rgba(0, 0, 0, 0)",
+      
     },
     dark: {
-      "--bg": "#000000",
-      "--primary": "#faf9f8",
+      "--bg": "#11100f",
+      "--text": "#faf9f8",
+      "--light-bg": "#252423",
+      "--shadow": "rgba(255,255, 255, 0)",
+      "--border": "#484644",
     },
   };
 

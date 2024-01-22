@@ -1,91 +1,122 @@
 @import "./../../style/variable";
 
 .addTask {
+  background-color: var(--light-bg) !important;
+  * {
+    background-color: var(--light-bg) !important;
+  }
 
-  .addTask-header{
+  // ::-webkit-calendar-picker-indicator {
+  //   filter: invert(1);
+  // }
+
+  height: 94vh;
+  margin-top: -3em;
+  padding: 0.5em 1em;
+  .addTask-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
 
-    div{
+    div {
       display: flex;
       align-items: center;
     }
-    
-    a{
+
+    a {
       margin-top: 5px;
     }
 
-    span{
+    span {
       font-weight: 600;
       font-size: 1.2em;
-      margin-left: .4em;
+      margin-left: 0.4em;
     }
 
-    .icon{
+    .icon {
       scale: 0.7;
-
     }
   }
-  .footer{
+  .footer {
     justify-content: center !important;
-  }
 
+    .save-btn, p{
+      background-color: $primary-color !important;
+    }
+  }
 
   form > * {
     width: 100%;
     padding: 0.5rem;
     border-radius: 0.3em;
     margin: 0.5em 0;
-    border: 0.05em solid $light-grey;
+    border: 0.05em solid $light-green;
     height: 3em;
+    color: var(--text) !important;
+
+    &:focus {
+      border: 0.1em solid $light-green;
+    }
   }
 
-  form{
+  form {
     color: $light-grey;
 
-    .icon{
+    .icon {
       scale: 0.6;
     }
 
-    div, label{
+    .input {
+      outline: none;
+
+      &:focus {
+        outline: none;
+        border: 0.05em solid $dark-green;
+      }
+    }
+
+    div,
+    label {
       display: flex;
       justify-content: space-between;
       align-items: center;
       gap: 0.2em;
       padding: 0;
+      // .icon {
+      //   color: var(--text) !important;
+      // }
 
-      input, select{
+      input,
+      select {
+        color: var(--text) !important;
+
         margin-right: 0.5em;
         border: none;
-        &:focus{
-          border: none;
-          outline: none;
-        }
       }
     }
 
-    .date{
+    .date {
       width: 7.5em;
     }
-    .time{
+    .time {
       width: 6.6em;
     }
-    .priority{
+    .priority {
       width: 5.7em;
     }
   }
 
-
   select {
+    outline: none !important;
+
     height: 2.5em;
     border: unset;
-    border: 0.05em solid $light-grey;
+    border: 0.05em solid $light-green;
     appearance: none;
     background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23131313%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
     background-repeat: no-repeat;
     background-position: right 0.7rem top 50%;
-    background-size: 0.65rem auto;    
+    background-size: 0.65rem auto;
   }
 
   #description {
@@ -93,10 +124,8 @@
     height: 7em;
   }
 
-
   .icon {
     width: 1.5em;
     height: 1.5em;
   }
-
 }

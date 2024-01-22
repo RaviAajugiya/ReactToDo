@@ -37,10 +37,11 @@ function home() {
   const dispatch = useDispatch();
   const [search, setSearch] = useState("");
   const [searchParams] = useSearchParams();
-  const [isSortOrderAsc, setIsSortOrderAsc] = useState(false);
+  const [isSortOrderAsc, setIsSortOrderAsc] = useState();
   const [isSortActive, setIsSortActive] = useState(false);
   const [isSortItemsVisible, setSortItemsVisible] = useState(false);
   const [sortLabel, setSortLabel] = useState("");
+  const [sort, setSort] = useState("duedate");
 
   const sensors = useSensors(
     useSensor(MouseSensor, {
@@ -51,25 +52,27 @@ function home() {
     })
   );
 
-  const handleSortOrder = () => {
-    setIsSortOrderAsc(!isSortOrderAsc);
-  };
 
-  const handleSort = (e) => {
-    let sortby = e.target.innerText.toLowerCase().split(" ").join("");
+  useEffect(() => {
+    handleSort(sort)
+  }, [sort,isSortOrderAsc,setIsSortOrderAsc])
+  
+  
 
-    // if (!isSortOrderAsc) {
-    //   sortby = sortby + "_dsce";
-    // }
-
-    console.log(sortby);
-
+  const handleSort = (sortType) => {
+    const sortOrder = isSortOrderAsc ? "asc" : "desc";
+    const sortBy = sortType + "_" + sortOrder;
+  
+    console.log(sortBy);
+  
     setSortItemsVisible(false);
-    setSortLabel(e.target.innerText);
+    setSortLabel(sortType);
     setIsSortActive(true);
-
-    dispatch(setSortBy(sortby));
+  
+    dispatch(setSortBy(sortBy));
   };
+  
+  
 
   const toggleSortItems = () => {
     setSortItemsVisible(!isSortItemsVisible);
@@ -80,8 +83,7 @@ function home() {
     <DndContext
       collisionDetection={closestCenter}
       onDragEnd={handleDragEnd}
-      sensors={sensors}
-    >
+      sensors={sensors}>
       <div className="home">
         <div className="sort-container">
           <span onClick={toggleSortItems}>
@@ -90,13 +92,13 @@ function home() {
           {isSortItemsVisible && (
             <div className="sort-items">
               <ul>
-                <li onClick={(e) => handleSort(e)}>
+                <li onClick={(e) => setSort('duedate')}>
                   <div>
                     <span>Due Date</span>
                   </div>
                 </li>
                 <hr />
-                <li onClick={(e) => handleSort(e)}>
+                <li onClick={(e) => setSort('alphabetically')}>
                   <div>
                     <span>Alphabetically</span>
                   </div>
@@ -109,12 +111,12 @@ function home() {
               {isSortOrderAsc ? (
                 <KeyboardArrowUp
                   className="icon"
-                  onClick={() => handleSortOrder()}
+                  onClick={() => setIsSortOrderAsc(false)}
                 />
               ) : (
                 <KeyboardArrowDown
                   className="icon"
-                  onClick={() => handleSortOrder()}
+                  onClick={() => setIsSortOrderAsc(true)}
                 />
               )}
               <p>
@@ -145,6 +147,11 @@ function home() {
             ))}
           </SortableContext>
         </div>
+        <Link to="/add">
+          <div className="add-btn">
+            <Add className="icon" />
+          </div>
+        </Link>
         <Link to="/add">
           <div className="add-btn">
             <Add className="icon" />

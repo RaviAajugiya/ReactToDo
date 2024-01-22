@@ -74,7 +74,7 @@ function Task(props) {
           </p>
         </div>
       </div>
-      <Flag className={`priority-${props.priority}`} />
+      <Flag className={`icon priority-${props.priority}`} />
     </div>
   );
 }

@@ -12,11 +12,7 @@ import { setTheme } from "../Theme/Theme.jsx";
 function Layout() {
   const location = useLocation();
   const [isWideScreen, setIsWideScreen] = useState(window.innerWidth > 769);
-  const { theme, toggleTheme } = useTheme();
-
-  React.useEffect(() => {
-    setTheme(theme);
-  }, [theme]);
+  
   useLayoutEffect(() => {
     const handleResize = () => {
       setIsWideScreen(window.innerWidth > 769);
@@ -32,13 +28,6 @@ function Layout() {
 
   return (
     <>
-      <div>
-        <div>fdsh df</div>
-        <button onClick={toggleTheme}>Toggle Theme</button>
-        <p className="read-the-docs">
-          Click on the Vite and React logos to learn more
-        </p>
-      </div>
       {isWideScreen || location.pathname === "/" ? <Header /> : null}
       <div className="main-container">
         {isWideScreen || location.pathname === "/" ? <Category /> : null}

@@ -2,7 +2,12 @@ import React, { useEffect, useState } from "react";
 import { Link, NavLink, useNavigate, useParams } from "react-router-dom";
 import { Add, Delete, West } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
-import { addTodo, editToDo, removeTodo, setAddTaskState } from "../Redux/slice/todoSlice";
+import {
+  addTodo,
+  editToDo,
+  removeTodo,
+  setAddTaskState,
+} from "../Redux/slice/todoSlice";
 import {
   NotificationsNone,
   CalendarMonth,
@@ -40,7 +45,7 @@ function AddTask() {
   const handleDelete = (e) => {
     e.preventDefault();
     dispatch(removeTodo(editData.id));
-    navigate('/');
+    navigate("/");
   };
 
   const handleSubmit = (e) => {
@@ -81,11 +86,13 @@ function AddTask() {
       const timeoutDuration = remindTime - currentTime;
       console.log(timeoutDuration);
 
-      setTimeout(() => {
-        showNotification(`Reminder: ${todo.title}`, {
-          body: `Don't forget to ${todo.title}`,
-        });
-      }, timeoutDuration);
+      if (timeoutDuration > 0) {
+        setTimeout(() => {
+          showNotification(`Reminder: ${todo.title}`, {
+            body: `Don't forget to ${todo.title}`,
+          });
+        }, timeoutDuration);
+      }
     }
 
     setGroup("");
@@ -114,12 +121,11 @@ function AddTask() {
         <form onSubmit={handleSubmit}>
           <select
             required
-            className="group customArrow"
+            className="group customArrow input"
             name="group"
             id=""
             value={group}
-            onChange={(e) => setGroup(e.target.value)}
-          >
+            onChange={(e) => setGroup(e.target.value)}>
             <option selected>Group</option>
             <option value="Work">Work</option>
             <option value="Personal">Personal</option>
@@ -127,6 +133,7 @@ function AddTask() {
           </select>
           <br />
           <input
+            className="input"
             required
             type="text"
             name="title"
@@ -137,13 +144,13 @@ function AddTask() {
           <br />
           <textarea
             required
+            className="input"
             name="description"
             id="description"
             placeholder="Description"
             cols="40"
             value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          ></textarea>
+            onChange={(e) => setDescription(e.target.value)}></textarea>
           <br />
 
           <div>
@@ -181,8 +188,7 @@ function AddTask() {
               id=""
               className="priority"
               value={priority}
-              onChange={(e) => setPriority(e.target.value)}
-            >
+              onChange={(e) => setPriority(e.target.value)}>
               <option selected>Priority</option>
               <option value="high">High</option>
               <option value="medium">Medium</option>
@@ -192,7 +198,7 @@ function AddTask() {
         </form>
         <div className="footer">
           <Link to="/" onClick={handleSubmit}>
-            <Button text="Save" />
+            <Button text="Save" btnClass="save-btn" />
           </Link>
         </div>
       </div>

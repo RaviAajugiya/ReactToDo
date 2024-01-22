@@ -23,8 +23,6 @@ function Category() {
     });
   };
 
-  
-
   return (
     <div className="category-container">
       <div className="category-label task-container-label">

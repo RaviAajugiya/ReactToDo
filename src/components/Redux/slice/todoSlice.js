@@ -24,26 +24,7 @@ const initialState = {
       remindMe: "10:00",
       group: "Personal",
     },
-    {
-      id: nanoid(),
-      title: "Learn D ",
-      description: "description",
-      priority: "high",
-      completed: false,
-      date: "2024-01-07",
-      remindMe: "10:00",
-      group: "Personal",
-    },
-    {
-      id: nanoid(),
-      title: "Learn C ",
-      description: "description",
-      priority: "high",
-      completed: false,
-      date: "2024-01-07",
-      remindMe: "10:00",
-      group: "Personal",
-    },
+    
     {
       id: nanoid(),
       title: "Learn B ",
@@ -64,56 +45,7 @@ const initialState = {
       remindMe: "10:00",
       group: "Personal",
     },
-    {
-      id: nanoid(),
-      title: "Learn C ",
-      description: "description",
-      priority: "high",
-      completed: false,
-      date: "2024-01-07",
-      remindMe: "10:00",
-      group: "Personal",
-    },
-    {
-      id: nanoid(),
-      title: "Learn C ",
-      description: "description",
-      priority: "high",
-      completed: false,
-      date: "2024-01-07",
-      remindMe: "10:00",
-      group: "Personal",
-    },
-    {
-      id: nanoid(),
-      title: "Learn C ",
-      description: "description",
-      priority: "high",
-      completed: false,
-      date: "2024-01-07",
-      remindMe: "10:00",
-      group: "Personal",
-    },
-    {
-      id: nanoid(),
-      title: "Learn C ",
-      description: "description",
-      priority: "high",
-      completed: false,
-      date: "2024-01-07",
-      remindMe: "10:00",
-      group: "Personal",
-    },
-    {
-      id: nanoid(),
-      title: "Learn Js ",
-      description: "description",
-      priority: "low",
-      completed: true,
-      date: "2024-01-07",
-      remindMe: "15:00",
-      group: "Personal",
-    },
+   
     {
       id: nanoid(),
       title: "Learn Python ",
@@ -130,7 +62,7 @@ const initialState = {
     search: "",
     group: "",
     date: "",
-    sortBy: "alphabetically",
+    sortBy: "",
   },
   addTaskState: false,
 };
@@ -206,12 +138,11 @@ export const todoSlice = createSlice({
         search: "",
         group: "",
         date: "",
-
       };
     },
 
-    setAddTaskState : (state,action) => {
-      state.addTaskState = action.payload
+    setAddTaskState: (state, action) => {
+      state.addTaskState = action.payload;
     },
 
     setSortBy: (state, action) => {
@@ -234,18 +165,21 @@ export const getFilteredToDo = (state) => {
     );
   });
 
-  const sortDate = (a, b) => {
-    if (sortBy === "duedate") {
+  const sortData = (a, b) => {
+    if (sortBy === "duedate_asc") {
       return new Date(a.date) - new Date(b.date);
-    } else if (sortBy === "alphabetically") {
+    } else if (sortBy === "duedate_desc") {
+      return new Date(b.date) - new Date(a.date);
+    } else if (sortBy === "alphabetically_asc") {
       return a.title.localeCompare(b.title);
-    } 
+    } else if (sortBy === "alphabetically_desc") {
+      return b.title.localeCompare(a.title);
+    } else {
+      return 0;
+    }
   };
 
-  data.sort(sortDate);
-  if (sortBy.endsWith("_desc")) {
-    data.reverse();
-  }
+  data.sort(sortData);
 
   return data;
 };
@@ -263,7 +197,7 @@ export const {
   setFilterDate,
   clearFilters,
   setAddTaskState,
-  setSortBy
+  setSortBy,
 } = todoSlice.actions;
 
 export default todoSlice.reducer;
