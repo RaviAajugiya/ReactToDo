@@ -1,21 +1,19 @@
 @import "./variable";
 
 * {
-  background-color: var(--bg);
   margin: 0;
   padding: 0;
+  color: var(--primary-text);
   font-size: 16px;
   font-family: $font-lato;
   box-sizing: border-box;
+  font-size: 16px;
 }
 
 body {
   color: var(--text);
 }
 
-#root {
-  // margin: 0.6em 1.2em;
-}
 
 a,
 a > * {

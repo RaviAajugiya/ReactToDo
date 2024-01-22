@@ -3,6 +3,7 @@
 .home {
   // box-shadow: inset rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
   // box-shadow: rgba(17, 17, 26, 0.1) 0px 0px 16px;
+
   width: 100%;
   height: 94vh;
   overflow-y: scroll;
@@ -30,7 +31,7 @@
         display: flex;
         flex-direction: column;
         gap: 0.7em;
-        border: 0.1em solid $light-border;
+        // border: 0.1em solid $light-border;
         border-radius: 0.3em;
       }
     }
@@ -50,7 +51,7 @@
         scale: 0.8;
       }
       .icon {
-        color: $light-grey;
+        // color: $light-grey;
         cursor: pointer;
       }
     }
@@ -60,7 +61,7 @@
     position: absolute;
     bottom: 20px;
     right: 20px;
-    background-color: $primary-color;
+    // background-color: $primary-color;
     width: 3em;
     height: 3em;
     border-radius: 50%;
@@ -70,13 +71,12 @@
     cursor: pointer;
 
     .icon {
-      background-color: $primary-color;
-      color: $bg-color;
+      // background-color: $primary-color;
+      // color: $bg-color;
     }
   }
 
   .task {
-    
     background-color: var(--light-bg);
     cursor: pointer;
     touch-action: none;
@@ -86,7 +86,7 @@
     justify-content: space-between;
     align-items: center;
     // border: 0.05em solid $light-grey;
-    border: 0.05em solid $light-border;
+    // border: 0.05em solid $light-border;
 
     box-shadow: 0 0 5px var(--shadow);
 
@@ -94,9 +94,8 @@
     padding: 0.9em;
     border-radius: 0.8em;
 
-    .icon{
+    .icon {
       background-color: var(--light-bg) !important;
-
     }
 
     .task-item {
@@ -114,7 +113,7 @@
 
       div {
         .icon {
-          color: $light-grey;
+          // color: $light-grey;
           font-size: 1.4em;
         }
 
@@ -129,7 +128,7 @@
           }
 
           &:first-child {
-            color: $dark-green;
+            // color: $dark-green;
             font-weight: 500;
             font-size: 1.1em;
           }
@@ -137,7 +136,7 @@
           &:last-child {
             margin-top: 0.5em;
             font-size: 0.7em;
-            color: $light-grey;
+            // color: $light-grey;
             font-weight: 300;
           }
         }
@@ -145,13 +144,13 @@
     }
 
     .priority-high {
-      color: $light-red !important;
+      // color: $light-red !important;
     }
     .priority-low {
-      color: $light-yellow !important;
+      // color: $light-yellow !important;
     }
     .priority-medium {
-      color: $light-green !important;
+      // color: $light-green !important;
     }
 
     span:first-child {
@@ -165,12 +164,11 @@
 
     p {
       background-color: var(--light-bg) !important;
-
     }
   }
 
   .completed-task {
-    border: 0.05em solid $light-border;
+    // border: 0.05em solid $light-border;
 
     .task-item {
       div {

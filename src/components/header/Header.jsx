@@ -55,8 +55,7 @@ function Header() {
     <>
       <header>
         <div>
-          <Checklist className="icon checklist-icon" />
-          <span className="brand-text">Task Ease</span>
+          <span className="brand-text">To Do</span>
         </div>
         <input
           type="text"

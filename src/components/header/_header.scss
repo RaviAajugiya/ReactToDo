@@ -1,6 +1,8 @@
 @import "./../../style/variable";
 
 header {
+  background-color: var(--header-color);
+  color: white;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -9,50 +11,25 @@ header {
   top: 0;
   width: 100vw;
   z-index: 2;
-  box-shadow: 0 4px 8px var(--shadow);
   padding: 0.6em 1em;
-  border-bottom: 1px solid var(--border);
 
   div {
     display: flex;
     gap: 0.5em;
   }
 
-  .checklist-icon {
-    margin-left: 0.3em;
-    background-color: $dark-green;
-    width: 1.4rem;
-    height: 1.4rem;
-    padding: 0.15rem;
-    border-radius: 0.4rem;
-    color: $white;
-  }
-
-  .edit-icon,
-  .delete-icon {
-    scale: 1.1;
-  }
-
-  .user-icon {
-    color: $dark-green;
-    scale: 1.5;
-  }
-
   .brand-text {
-    font-weight: 600;
     font-size: 1.2em;
   }
 
   .searchBox {
-    border: 0.1em solid $light-border;
+    color: var(--color);
+    background-color: var(--secondary-background);
     padding: 0.4em 0.7em;
     border-radius: 0.35em;
     width: 30em;
+    border: none;
     outline: none;
-
-    &:focus {
-      border: 0.1em solid $light-green;
-    }
 
     @media (max-width: 767px) {
     }

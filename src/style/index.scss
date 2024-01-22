@@ -6,7 +6,6 @@
 @import "./../components/category/category";
 @import "./../components/button/button";
 
-div {
-  background-color: var(--bg);
-  color: var(--primary);
+body{
+  color: var(--primary-text);
 }
