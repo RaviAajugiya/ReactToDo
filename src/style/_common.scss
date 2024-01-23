@@ -38,11 +38,13 @@ body::-webkit-scrollbar {
 }
 
 .addTask {
+  height: calc(100vh);
   position: relative;
 }
 
 .footer {
   position: absolute;
+  left: 0;
   height: 4.5em;
   font-weight: 400 !important;
   width: 100%;
@@ -71,6 +73,8 @@ body::-webkit-scrollbar {
   .addTask {
     margin-top: 0em;
     width: 35em;
+  height: calc(100vh - 3em);
+
     // box-shadow: 0px 0.3px 17.5px var(--shadow), 0px 1.6px 3.6px var(--shadow);
   }
 
