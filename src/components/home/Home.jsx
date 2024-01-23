@@ -52,27 +52,22 @@ function home() {
     })
   );
 
-
   useEffect(() => {
-    handleSort(sort)
-  }, [sort,isSortOrderAsc,setIsSortOrderAsc])
-  
-  
+    handleSort(sort);
+  }, [sort, isSortOrderAsc, setIsSortOrderAsc]);
 
   const handleSort = (sortType) => {
     const sortOrder = isSortOrderAsc ? "asc" : "desc";
     const sortBy = sortType + "_" + sortOrder;
-  
+
     console.log(sortBy);
-  
+
     setSortItemsVisible(false);
     setSortLabel(sortType);
     setIsSortActive(true);
-  
+
     dispatch(setSortBy(sortBy));
   };
-  
-  
 
   const toggleSortItems = () => {
     setSortItemsVisible(!isSortItemsVisible);
@@ -92,13 +87,13 @@ function home() {
           {isSortItemsVisible && (
             <div className="sort-items">
               <ul>
-                <li onClick={(e) => setSort('duedate')}>
+                <li onClick={(e) => setSort("duedate")}>
                   <div>
                     <span>Due Date</span>
                   </div>
                 </li>
                 <hr />
-                <li onClick={(e) => setSort('alphabetically')}>
+                <li onClick={(e) => setSort("alphabetically")}>
                   <div>
                     <span>Alphabetically</span>
                   </div>
@@ -124,7 +119,10 @@ function home() {
               </p>
               <Close
                 className="icon close-icon"
-                onClick={() => setIsSortActive(false)}
+                onClick={() => {
+                  dispatch(setSortBy(""));
+                  setIsSortActive(false);
+                }}
               />
             </div>
           ) : null}

@@ -25,9 +25,9 @@ function Category() {
 
   return (
     <div className="category-container">
-      <div className="category-label task-container-label">
+      {/* <div className="category-label task-container-label">
         <span>Categories</span>
-      </div>
+      </div> */}
       <div className="categoryIteam-container">
         <CategoryIteam
           text="All"

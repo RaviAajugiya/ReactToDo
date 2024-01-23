@@ -33,7 +33,7 @@ body::-webkit-scrollbar {
 .main-container {
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 4em);
+  height: calc(100vh - 3em);
   margin-top: 3em;
 }
 
@@ -64,17 +64,14 @@ body::-webkit-scrollbar {
 
     .home {
       width: 100%;
-
-      
+      box-shadow: inset 6px 0 4px -4px #999, inset -6px 0 4px -4px #999;
     }
   }
 
   .addTask {
     margin-top: 0em;
     width: 35em;
-    box-shadow: 0px 0.3px 17.5px var(--shadow), 0px 1.6px 3.6px var(--shadow);
-
-    
+    // box-shadow: 0px 0.3px 17.5px var(--shadow), 0px 1.6px 3.6px var(--shadow);
   }
 
   .add-btn {
